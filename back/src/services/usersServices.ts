@@ -15,7 +15,7 @@ export const getUserById=async(id:number):Promise<IUser| undefined>=>{
     return users.find(user => user.id === id);
 }
 
-export const createUser = async (name: string, email: string, birthdate: Date, nDni:number, username: string, password: string): Promise<number> => {
+export const createUser = async (name: string, email: string, birthdate: string, nDni:number, username: string, password: string): Promise<number> => {
     const credentialsId = await createCredential(username, password);
 
     const newUser: IUser = {

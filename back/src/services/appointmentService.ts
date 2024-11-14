@@ -1,5 +1,5 @@
 import IAppointment, { appointmentStatus } from "../interfaces/IAppointment"; 
-import IUser from "../interfaces/IUser";
+
 
 import { getUserById } from "./usersServices";
 
@@ -14,7 +14,7 @@ export const getAppointmentById = async (id: number): Promise<IAppointment | und
     return appointments.find(appointment => appointment.id === id);
 }
 
-export const createAppointment = async (date: Date, time: string, userId: number): Promise<number> => {
+export const createAppointment = async (date: string, time: string, userId: number): Promise<number> => {
     const userExists = await getUserById(userId);
     if (!userExists) {
         throw new Error("User not found");

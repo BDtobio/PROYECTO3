@@ -1,8 +1,8 @@
-import IUser from "./IUser";
+
 
 interface appointment{
     id:number,
-    date:Date,
+    date:string,
     time:string,
     userId:number,
     status:appointmentStatus

@@ -1,11 +1,11 @@
 import { Router } from "express";
-import {getAllAppointments,getAppointmentById,scheduleAppointment,cancelAppointment} from "../controllers/appointmentController";
+    import {getAllAppointmentsController,getAppointmentByIdController,createAppointmentController,cancelAppointmentController} from "../controllers/appointmentController";
 
 const appointmentRoutes:Router=Router();
-appointmentRoutes.get("/",getAllAppointments)
-appointmentRoutes.get("/:id",getAppointmentById)
-appointmentRoutes.post("/schedule",scheduleAppointment)
-appointmentRoutes.put("/cancel",cancelAppointment)
+appointmentRoutes.get("/",getAllAppointmentsController)
+appointmentRoutes.get("/:id",getAppointmentByIdController)
+appointmentRoutes.post("/schedule",createAppointmentController)
+appointmentRoutes.put("/cancel",cancelAppointmentController)
 
  export default appointmentRoutes;
 

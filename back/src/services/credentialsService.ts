@@ -22,7 +22,7 @@ export const createCredential = async (username: string, password: string): Prom
 export const validateCredential = async (username: string, password: string): Promise<number | null> => {
     const credential = credentials.find(cred => cred.username === username);
     if (credential && credential.password === password) {
-        return credential.id; // 
+        return credential.id; 
     }
     return null;
 }
