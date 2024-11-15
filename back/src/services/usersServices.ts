@@ -1,33 +1,59 @@
 
-import IUser from "../interfaces/IUser"
-import createCredential from "./credentialsService";
-let users:IUser[]=[]
-let id:number =1;
+import { UserModel } from "../config/appDataSource";
+import { registerUserDto } from "../dtos/userDto";
+import { User } from "../entities/User";
 
+import { createCredential } from "./credentialsService";
 
-export const getAllUsers=async():Promise<IUser[]>=>{
-
+export const getAllUsers=async():Promise<User[]>=>{
+const users=await UserModel.find({
+    relations: {
+        appointments: true,
+        }
+})
     return users
 }
 
-export const getUserById=async(id:number):Promise<IUser| undefined>=>{
-
-    return users.find(user => user.id === id);
+export const getUserById=async(id:number):Promise<User| null>=>{
+const user=await UserModel.findOneBy({
+    id
+})
+return user
 }
 
-export const createUser = async (name: string, email: string, birthdate: string, nDni:number, username: string, password: string): Promise<number> => {
-    const credentialsId = await createCredential(username, password);
+export const createUser = async (userData:registerUserDto): Promise<User> => {
+    const newUser = await UserModel.create(userData);
+    const savedUser = await UserModel.save(newUser);
 
-    const newUser: IUser = {
-        id,
-        name,
-        email,
-        birthdate,
-        nDni,
-        credentialsId,
-    };
-    users.push(newUser);
-    id++
-    return newUser.id;
+    const username = userData.name;
+    const password = userData.password;
+
+    const credentialData = {
+        username,
+        password,
+        user: savedUser.id,
+    }
+    const newCredential = await createCredential(credentialData);
+
+    savedUser.credential= newCredential; 
+
+    await UserModel.save(savedUser);
+
+
+    return newUser;
 }
+    // const newUser = UserModel.create(userData);
+    // const saveUser = await UserModel.save(newUser);
+    // const username= userData.username;
+    // const password= userData.password;
+
+    // const credentialData = {
+    //     username,
+    //     password,
+    //     user: saveUser,
+    // };
+    // await createCredential(credentialData);
+  
+    // return newUser;
+// }
 

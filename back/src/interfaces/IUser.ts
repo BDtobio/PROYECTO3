@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
   id: number;
   name: string;
   email: string;
@@ -6,4 +6,4 @@ interface IUser {
   nDni: number;
   credentialsId: number;
 }
-export default IUser;
+

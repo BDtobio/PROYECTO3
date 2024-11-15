@@ -5,22 +5,17 @@ import {
   getUserById,
 } from "../services/usersServices";
 
-export const registerUserController =async (req: Request, res: Response) => {
-  const { name, email, birthdate, nDni, username, password } = req.body;
+import { loginUserDto } from "../dtos/userDto";
 
+export const registerUserController =async (req: Request, res: Response) => {
   try {
-    const newUser = await createUser(
-      name,
-      email,
-      birthdate,
-      nDni,
-      username,
-      password
-    );
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(500).json({ error: "Error al registrar el usuario" });
-  }
+    const newUser = await createUser(req.body);
+    res.status(201).json({message: "Usuario registrado correctamente.",
+        user: newUser.name
+    })
+} catch {
+    res.status(400).json({message: "Hubo un error en el registro"})
+}
 };
 
 export const getAllUsersController = async(req: Request, res: Response) => {
@@ -43,7 +38,10 @@ export const getUserByIdController =async (req: Request, res: Response) => {
   }
 };
 
-
+export const loginUserController= async (req: Request < unknown, unknown, loginUserDto>, res: Response) => {
+    const { username, password } = req.body;
+    res.status(201).json({message: "Con esto funcionará el login", username, password});
+}
 // import { Request, Response } from "express";
 // import { loginUser } from "../services/usersServices"; 
 

@@ -2,7 +2,7 @@
 
 interface appointment{
     id:number,
-    date:string,
+    date:Date,
     time:string,
     userId:number,
     status:appointmentStatus
@@ -13,5 +13,4 @@ interface appointment{
     cancelled="cancelled"
 
 }
-
-export default appointment;
+export default appointment
