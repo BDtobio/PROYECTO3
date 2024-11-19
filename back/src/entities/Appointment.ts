@@ -1,5 +1,7 @@
+
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
+
 
 @Entity({
     name: "appointments",
@@ -17,6 +19,7 @@ export class Appointment {
     @Column()
     status: string;
 
-    @ManyToOne(() => User)
-    userId: User;
+    @ManyToOne(() => User, user => user.appointments)
+    user: User;
 }
+// export const AppointmentModel = AppDataSource.getRepository(Appointment);

@@ -1,10 +1,11 @@
+import { User } from "../entities/User"
 
 
 interface appointment{
     id:number,
     date:Date,
     time:string,
-    userId:number,
+    userId:User,
     status:appointmentStatus
 }
 

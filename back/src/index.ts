@@ -1,7 +1,7 @@
 import { AppDataSource } from "./config/appDataSource";
 import server from "./server";
 require ("dotenv").config();
-
+import "reflect-metadata"
 const PORT=process.env.PORT
 
 AppDataSource.initialize()
