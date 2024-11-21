@@ -1,13 +1,8 @@
 
 import { Request, Response } from "express"
 import { getUserById, getAllUsers, registerUser,logingUserService } from "../services/usersServices"
-import { loginUserDto, registerUserDto } from "../dtos/userDto";
-import CredentialRepository from "../repositories/credentialRepository";
-import { Credential } from "../entities/Credential";
-// import { validateCredentialService } from "../services/credentialsService";
-import { User } from "../entities/User";
-import { createCredentialService } from "../services/credentialsService";
-// import { getAppointmentById } from "../services/appointmentService";
+import { loginUserDto, loginUserSucessDto, registerUserDto } from "../dtos/userDto";
+
 
 
 export const getAllUsersController = async (req: Request, res: Response) => {
@@ -28,7 +23,7 @@ export const getUserByIdController = async (req: Request< { id: string } >, res:
         const user = await getUserById(parseInt(id));
         res.status(200).json({user})
     } catch(error) {
-        res.status(404).json({ message: "No se ha podido completar la solicitud", error });
+        res.status(404).json({ message: "usuario no encontrado", error });
     }
 }
 
@@ -42,29 +37,21 @@ export const registerUserController = async (req: Request< unknown, unknown,regi
         res.status(400).json({message: "Hubo un error en el registro"})
     }
 }
-export const loginUserController = async (req: Request < unknown, unknown, loginUserDto >, res: Response):Promise<void> => {
-    
-    // try {
-        
-    //     const response:loginUserDto | null = await logingUserService(req.body)
-    //     res.status(200).json(response);
-    // } catch(error) {
-    //     res.status(400).json({ message: "No se ha podido completar la solicitud", error });
-    // }
-}
 
-//                 CLASE
-// export const registerUserController = async (req: Request< unknown, unknown,registerUserDto>, res: Response):void => {
-//     try {
-//         const response=await registerUser(req.body)
-//         res.status(201).json({message: "Usuario registrado correctamente."})
-//         } catch(error) {
-//         res.status(400).json({
-//             message: "Hubo un error en el registro",
-//         data:error instanceof Error ? error.message : "error desconocido"
-//     })
-//     }
-// }
+
+export const loginUserController = async (req: Request<unknown,unknown,loginUserDto>, res: Response):Promise<void> => {
+    try {    
+      const response:loginUserSucessDto| null=await
+      logingUserService(req.body)
+       res.status(200).json({response});
+    } catch(error) {
+      res.status(400).json({
+        message: 'Hubo un error al intentar iniciar sesión, por favor intente nuevamente.',
+        data:error instanceof Error ? error.message:"error desconocido"})
+    }
+  
+
+}
 
 
 

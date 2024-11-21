@@ -1,0 +1,48 @@
+.navbar {
+  display: flex;
+  justify-content: space-between; /* El logo y los enlaces estarán separados */
+
+  align-items: center; /* Centra verticalmente los elementos */
+  padding: 10px 20px;
+  background-color: #333; /* O cualquier color de fondo que prefieras */
+}
+
+.logo {
+  display: flex;
+  align-items: center; /* Alinea el logo y el h1 en línea horizontal */
+  margin-right: 0px;
+}
+
+.logoImage {
+  width: 100px; /* Ajusta el tamaño del logo */
+  height: 100px;
+  margin-right:auto; 
+  /* justify-content: center; */
+  display: flex;
+}
+
+.logo h1 {
+  margin: 0;
+  color: #fff;
+  font-size: 30px;
+  margin-left: 27px; /* Solo un poco de espacio hacia la derecha */
+}
+
+.links {
+  display: flex;
+  justify-content:space-around; 
+  text-align: center;
+  gap: 20px; /* Espacio entre los enlaces */
+  margin-right: 750px
+  ; 
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.link:hover {
+  color: #f0f0f0;
+}

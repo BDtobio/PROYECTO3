@@ -1,7 +1,7 @@
 import { appointmentStatus } from "../interfaces/IAppointment";
 
 export interface AppointmentDTO {
-    date: string;
+    date: Date;
     time: string;
     status?: string;
     userId: number; 

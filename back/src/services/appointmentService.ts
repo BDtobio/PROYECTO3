@@ -73,51 +73,27 @@ export const getAllAppointments = async (): Promise<AppointmentDTO[]> => {
 return appointmentDTO;
 }
 
-export const getAppointmentsById = async (userId: number): Promise<AppointmentDTO[] | null> => {
+export const getAppointmentsById = async (id: number): Promise<AppointmentDTO | null> => {
 
   
-  const appointments = await AppointmentRepository.find({
-    where: { user: { id: userId } },  
-    relations: ['user'],  
+  const appointment = await AppointmentRepository.findOne({
+    where: { id },
+    relations: ["user"], 
   });
 
-  
-  if (appointments.length === 0) {
-    return null;
+  if (!appointment) {
+    throw new Error(`No se encontró la cita con id: ${ id }`);
   }
-
-  // Mapear los appointments a DTOs
-  const appointmentsDTO: AppointmentDTO[] = appointments.map((appointment) => ({
+  const appointmentsDTO: AppointmentDTO={
     date: appointment.date,
     time: appointment.time,
     status: appointment.status,
     userId: appointment.user.id,  
-  }));
+  };
 
   return appointmentsDTO;
 };
 
-
-// export const getAppointmentById = async (id: number): Promise<AppointmentDTO| null> => {
-//   const appointment = await AppointmentRepository.findOne({
-//      where: { id },
-//      relations: ['user'],  
-//     });
-// if (!appointment) {
-//   return null;  
-// }
-// const appointmentDTO: AppointmentDTO = {
-//   date: appointment.date,
-//   time: appointment.time,
-//   status: appointment.status,
-//   userId: appointment.user.id,  
-
-// };
-
-// return appointmentDTO;
-// }
-
-  
 
 
 
@@ -127,8 +103,10 @@ export const createAppointment = async (appointmentData: AppointmentDTO): Promis
   await queryRunner.connect();
 
   try {
+  
     await queryRunner.startTransaction(); 
-
+    await AppointmentRepository.validateExistingAppointment(appointmentData.userId,appointmentData.date,appointmentData.time);
+    AppointmentRepository.validateAllowAppointment(appointmentData.date, appointmentData.time);
     if (!appointmentData.userId) {
       throw new Error("El ID de usuario es obligatorio para crear un turno.");
     }
@@ -159,9 +137,11 @@ export const createAppointment = async (appointmentData: AppointmentDTO): Promis
     status: savedAppointment.status,
     userId: savedAppointment.user.id, 
   };
-  } catch {
+  } catch(error){
     await queryRunner.rollbackTransaction();
-    throw new Error("Error al crear la cita"); 
+    if (error) {
+      throw new Error(`${error}`);
+    }
   } finally {
     await queryRunner.release();
   }

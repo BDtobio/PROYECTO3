@@ -75,6 +75,7 @@
 import { Request, Response } from "express"
 import { AppointmentDTO } from "../dtos/appointmentDto";
 import { cancelAppointment, createAppointment, getAllAppointments, getAppointmentsById } from "../services/appointmentService";
+import { PostgresError } from "../interfaces/ErrorInterface";
 
 export const getAllAppointmentsController = async (req: Request, res: Response) => {
     try {
@@ -113,11 +114,15 @@ export const createAppointmentController = async (req: Request< unknown, unknown
 
         res.status(201).json({ newAppointment });
         return;
-    } catch (err) {
-        res.status(400).json({ message: "No se ha podido completar la solicitud", err });
-        return;
+    
+    } catch (error) {
+        const err = error as PostgresError
+            res.status(400).json({ message: "Error en el servidor", 
+                data: err instanceof Error ? err.detail ? err.detail : err.message : "error desconocido"});
+            return;
+        }
     }
-}
+
 
 export const cancelAppointmentController= async (req: Request< { id: string } >, res: Response) => {
     try {

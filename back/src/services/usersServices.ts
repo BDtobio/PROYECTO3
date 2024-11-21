@@ -1,15 +1,16 @@
 
 import UserRepository from "../repositories/userRepository";
-import {  registerUserDto } from "../dtos/userDto";
+import {  loginUserSucessDto, registerUserDto } from "../dtos/userDto";
 import { loginUserDto } from "../dtos/userDto";
 import { User } from "../entities/User";
-
+import { checkCredentials } from "./credentialsService";
 // import { createCredentialService, validateCredentialService } from "./credentialsService";
 import { AppDataSource } from "../config/appDataSource";
 import { createCredentialService } from "./credentialsService";
+import CredentialRepository from "../repositories/credentialRepository";
+import { Credential } from "../entities/Credential";
 // import { IUser } from "../interfaces/IUser";
-// const usersList:User[]=[]
-// let id:number=1
+
 
 export const getAllUsers = async (): Promise<User[] | undefined> => {
     try {
@@ -22,21 +23,19 @@ export const getAllUsers = async (): Promise<User[] | undefined> => {
       return undefined;
     }
   };
-export const getUserById = async (id: number): Promise<User | null> => {
-    try {
+export const getUserById = async (id: number): Promise<User> => {
         const user = await UserRepository.findOne({
           where: { id },
           relations: ['appointments'], 
         });
-        
+        if(!user){
+          throw new Error(`no se encontro el usuario con id:${id}`)
+        }
         return user;
-      } catch (error) {
-        console.error('Error al obtener el usuario:', error);
-        return null;
-      }
-    };
+        
+      };
 
-//      M          MI USER REGISTERR
+
 
 export const registerUser = async (userData: registerUserDto): Promise<User> => {
   const queryRunner = AppDataSource.createQueryRunner();
@@ -75,55 +74,23 @@ export const registerUser = async (userData: registerUserDto): Promise<User> => 
 
 
 
-//            FUNCION LOGIN
-
-
-export const logingUserService=async(user:loginUserDto): Promise<void>=>{
-// const usernameFound:Credential | null=await CredentialRepository.findOne({
-//   where:{
-//    createdAt:{
-//     id:credentiald
-
-//    }
-//   }
-// })
-// return{
-//   login:true
-//   user:{
-//     id:usernameFound?.id || 0,
-//     name:usernameFound?.name ?? "",
-//     email:usernameFound?.email ?? "",
-//     birthdate:usernameFound?.birthdate ?? new Date,
-//   }
-// }
-
-}
-
-
-
-
-
-
-//               CLASE
-
-//     export const registerUser = async (userData: registerUserDto):Promise<IUser> => {
-//  const idCredentialsUser:number=await createCredentialService(userData.username,userData.password)  
-
-//   const userObject:IUser={
-//     id:id++,
-//     name:userData.name,
-//     birthdate:userData.birthdate,
-//     email:userData.email,
-//     nDni:userData.nDni,
-//     credentialsId:idCredentialsUser
-    
-    
-    
-//     }
-//     usersList.push(userObject)
-//     return userObject
-//     }
-    
-
+export const logingUserService=async(user:loginUserDto): Promise<loginUserSucessDto>=>{
+  const credentiald:number | undefined=await checkCredentials(user.username,user.password)
+  const userFound:User | null=await UserRepository.findOne({
+    where:{credential:{id:credentiald}
+    }
+  })
+  return{
+    login:true,
+    user:{
+      id:userFound?.id || 0,
+      name:userFound?.name ?? "",
+      email:userFound?.email ?? "",
+      birthdate:userFound?.birthdate ?? new Date,
+      nDni: userFound?.nDni ?? 0
+    }
+  }
+  
+  }
 
 

@@ -9,18 +9,20 @@ export  interface registerUserDto{
 
 
 export interface loginUserDto{
-    username:string,
-    // email:string,
-    password:string,
+    username:string
+    password:string
 }
 
 
-// export interface userDto{
-//     id:UserFound?.id,
-//     username:string,
-//     email:string,
-//     password:string,
-// }
-// export interface loginUserSucessDto{
-//  user:userDto
-// }
+export interface userDto{
+    id:number
+    name:string
+    email:string
+    birthdate:Date
+    nDni:number
+}
+
+export interface loginUserSucessDto{
+    login:boolean
+     user:userDto
+}

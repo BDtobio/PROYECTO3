@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getAllUsersController,getUserByIdController,registerUserController,loginUserController } from "../controllers/usersController";
+import { checkCredentials } from "../services/credentialsService";
 import { validateUser } from "../middlewares/validatorUsers"; 
 // import auth from "../middlewares/auth";
 const userRoutes:Router=Router();
