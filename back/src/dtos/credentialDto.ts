@@ -1,5 +1,5 @@
-export interface CreateCredentialDto {
+export interface CredentialDto {
     username: string;
     password: string;
-    user:number;
+    userId:number;
 }

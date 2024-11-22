@@ -1,4 +1,4 @@
-/* Centrado y flexibilidad del contenedor */
+
 .turnosContainer {
     display: flex;
     flex-direction: column;

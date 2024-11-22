@@ -1,6 +1,6 @@
 import { ICredential } from "../interfaces/ICredential";
 import { Credential } from "../entities/Credential";
-import { CreateCredentialDto } from "../dtos/credentialDto";
+import { CredentialDto } from "../dtos/credentialDto";
 import UserRepository from "../repositories/userRepository";
 import CredentialRepository from "../repositories/credentialRepository";
 
@@ -10,9 +10,9 @@ let id:number=1
 
 
 
-export const createCredentialService= async (credentialsData: CreateCredentialDto): Promise<Credential> => {
+export const createCredentialService= async (credentialsData: CredentialDto): Promise<Credential> => {
 
-    const user = await CredentialRepository.findOne({ where: { id: credentialsData.user } });
+    const user = await CredentialRepository.findOne({ where: { id: credentialsData.userId } });
     if (!user) {
         throw new Error("User not found");
     }
@@ -27,26 +27,28 @@ export const createCredentialService= async (credentialsData: CreateCredentialDt
 }
 
 
-const crypPass=async(password:string):Promise<string>=>{
-    const enconder= new TextEncoder()
-    const data=enconder.encode(password)
-    const hash=await crypto.subtle.digest("SHA-256",data)
-    const hashArray=Array.from(new Uint8Array(hash))
-    const passCrypt=hashArray.map(b=>b.toString(16).padStart(2, "0")).join("")
-    return passCrypt
-}
-
-
-
-export const checkCredentials=async(username:string,password:string): Promise<number | undefined>=>{
-    const usernameFound:ICredential | undefined=credentialsList.find(credential => credential.username===username)
-    const crypPassword:string=await crypPass(password)
-    if(!usernameFound) throw new Error(`el usuario ${username} no fue encontrado`)
-        if(usernameFound.password !==crypPassword) throw new Error(`usuario o contraseña incorrectos`)
-            else return usernameFound.id
+// export const checkCredentials=async(username:string,password:string): Promise<number | undefined>=>{
+//     const usernameFound:ICredential | undefined=credentialsList.find(credential => credential.username===username)
+//     const crypPassword:string=await crypPass(password)
+//     if(!usernameFound) throw new Error(`el usuario ${username} no fue encontrado`)
+//         if(usernameFound.password !==crypPassword) throw new Error(`usuario o contraseña incorrectos`)
+//             else return usernameFound.id
     
-  }
+//   }
   
+
+// const crypPass=async(password:string):Promise<string>=>{
+//     const enconder= new TextEncoder()
+//     const data=enconder.encode(password)
+//     const hash=await crypto.subtle.digest("SHA-256",data)
+//     const hashArray=Array.from(new Uint8Array(hash))
+//     const passCrypt=hashArray.map(b=>b.toString(16).padStart(2, "0")).join("")
+//     return passCrypt
+// }
+
+
+
+
 
 
 

@@ -20,9 +20,11 @@ export interface userDto{
     email:string
     birthdate:Date
     nDni:number
+  
 }
 
 export interface loginUserSucessDto{
     login:boolean
      user:userDto
+    
 }

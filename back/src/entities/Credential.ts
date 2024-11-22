@@ -1,5 +1,5 @@
 
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 
 
@@ -19,7 +19,7 @@ export class Credential {
     @CreateDateColumn()
     createdAt?: Date;
 
-    @CreateDateColumn()
+    @UpdateDateColumn()
     updatedAt?: Date;
 
     @OneToOne(() => User, (user) => user.credential)

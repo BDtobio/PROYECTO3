@@ -30,7 +30,7 @@
   color: white;
 }
 
-.appointment .status.confirmed {
+.appointment .status.active {
   background-color: #388e3c;
 }
 

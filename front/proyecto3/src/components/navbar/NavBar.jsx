@@ -9,11 +9,9 @@ const NavBar = () => {
     <nav className={styles.navbar}>
 <div className={styles.logo}>
 <img src={logo} alt="Logo Restaurante" className={styles.logoImage} />
-  {/* <div> */}
-  <h1>Restaurante Italiano</h1>
+  
+  <h1>ITALY TASTY</h1>
   </div>
-
-      {/* </div> */}
      
     <div className={styles.links}>
     <Link to="/" className={styles.link}>Home</Link> 

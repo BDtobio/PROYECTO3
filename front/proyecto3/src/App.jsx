@@ -12,8 +12,8 @@ function App() {
   
     <Routes>
       <Route path="/" element={<Home />} />  
-      <Route path="/mis-turnos" element={<MisTurnos />} />  {/* Mis Turnos */}
-      <Route path="/acerca-de" element={<AcercaDe />} />  {/* Acerca de */}
+      <Route path="/mis-turnos" element={<MisTurnos />} /> 
+      <Route path="/acerca-de" element={<AcercaDe />} />  
     </Routes>
   </Router>
    

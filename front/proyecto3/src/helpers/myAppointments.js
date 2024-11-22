@@ -1,20 +1,19 @@
- const myAppointments=()=>{
-    const Appointments=[
-      
-        {
-            id:1,
-          date: "2024-11-22",
-          time: "12:00",
-          userId: 3,
-        },
+ const myAppointments=[
+    
+
+          { "userId": 2, 
+            "date": "2024-11-21", 
+            "time": "10:00", 
+            "status": "active" },
+         
         { 
-            id:2,
-            date: "20/12/78", 
-          time: "17:00", 
-          userId: 4 },
+          "userId": 1, 
+            "date": "2024-11-21",
+            "time": "10:00", 
+            "status": "active" 
+        }
 ];
-return Appointments
-} 
+
 
 
 export default myAppointments;
