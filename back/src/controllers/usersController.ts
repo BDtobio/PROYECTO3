@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express"
-import { getUserById, getAllUsers, registerUser} from "../services/usersServices"
+import { getUserById, getAllUsers, registerUser,loginUser} from "../services/usersServices"
 import { loginUserDto, loginUserSucessDto, registerUserDto } from "../dtos/userDto";
 
 
@@ -35,6 +35,15 @@ export const registerUserController = async (req: Request< unknown, unknown,regi
         })
     } catch {
         res.status(400).json({message: "Hubo un error en el registro"})
+    }
+}
+
+export const loginUserController = async (req: Request < unknown, unknown, loginUserDto >, res: Response) => {
+    try {
+        const response: loginUserSucessDto = await loginUser(req.body)
+        res.status(200).json(response);
+    } catch(error) {
+        res.status(400).json({ message: "No se ha podido completar la solicitud", error });
     }
 }
 // export const loginUserController = async (

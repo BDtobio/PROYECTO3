@@ -7,14 +7,43 @@ import plato1 from '../../images/plato1.png';
 import plato2 from '../../images/plato2.png';
 import plato3 from '../../images/plato3.png';
 import plato4 from '../../images/plato4.png';
+
+
+import { useState } from 'react';
+import Register from "../Register/RegisterUser";
+
+// import Register from "../Register/RegisterUser";
 const Home= () =>{
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+
     return (   
       <div>   
+   
+      
         <div>
         
         <NavBar />
      </div>
     <div className={styles.container}>
+
+    <h1>Bienvenido a la Página Principal</h1>
+    <button onClick={openModal}>Abrir Registro</button>
+
+      {isModalOpen && (
+        <div className={styles.modalBackdrop} onClick={closeModal}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()} 
+          >
+            <Register isOpen={isModalOpen} onClose={closeModal} />
+          </div>
+        </div>
+      )}
+
       {/* Sección de portada */}
       <section className={styles.hero}>
         {/* Imagen de fondo, puedes agregar tu imagen en src */}
@@ -28,7 +57,7 @@ const Home= () =>{
           <p>Donde la tradición italiana cobra vida en cada plato</p>
         </div>
       </section>
-
+      
       {/* Sección de platos famosos */}
       <section className={styles.platosFamosos}>
       <h2 className={styles.sectionTitle}>Nuestros Platos Más Famosos</h2>

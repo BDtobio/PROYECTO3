@@ -1,0 +1,67 @@
+
+.reservations {
+    position: relative;
+    background-image: url("https://thumbs.dreamstime.com/b/gente-comiendo-y-bebiendo-en-el-restaurante-de-la-calle-roma-vida-nocturna-sentada-trastevere-distrito-est%C3%A1-lleno-caf%C3%A9s-pubs-247676082.jpg"); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+ 
+  }
+  
+  /* Sombra sutil */
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    border: 3px solid #e63946; /* Bordes decorativos inspirados en el rojo italiano */
+  }
+  
+ 
+  
+  /* Título */
+  .title {
+    font-size: 3rem;
+    color: #e63946; /* Rojo italiano */
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+  
+  /* Estilo del formulario */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Estilo de cada grupo de inputs */
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .inputGroup label {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #f4a261; /* Tonos cálidos */
+  }
+  
+  .inputGroup input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #f4a261;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+  }

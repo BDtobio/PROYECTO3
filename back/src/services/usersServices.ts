@@ -7,7 +7,7 @@ import { User } from "../entities/User";
 // import { createCredentialService, validateCredentialService } from "./credentialsService";
 import bcrypt from 'bcrypt';
 import { AppDataSource } from "../config/appDataSource";
-import { createCredentialService } from "./credentialsService";
+import { createCredentials, validateCredentialService } from "./credentialsService";
 import CredentialRepository from "../repositories/credentialRepository";
 import { Credential } from "../entities/Credential";
 import { IUser } from "../interfaces/IUser";
@@ -38,63 +38,84 @@ export const getUserById = async (id: number): Promise<User> => {
       };
 
 
-
-export const registerUser = async (userData: registerUserDto): Promise<User> => {
-  const queryRunner = AppDataSource.createQueryRunner();
-  await queryRunner.connect();
-  try {
-      await queryRunner.startTransaction()
-      const newUser: User = UserRepository.create(userData);
-      const savedUser = await queryRunner.manager.save(newUser);
+      export const registerUser: (userData: registerUserDto) => Promise<userDto> =
+      async (userData: registerUserDto): Promise<userDto> => {
+       const CredentialsUser = await createCredentials(
+         userData.username,
+         userData.password
+       ); 
+     
+       const newUserObject = {
+         name: userData.name,
+         email: userData.email,
+         birthdate: userData.birthdate,
+         nDni: userData.nDni,
+         credentials: CredentialsUser,
+       };
+     
+       const newUser = UserRepository.create(newUserObject)
+     
+       return await UserRepository.save(newUser) 
+     };
+     
+// export const registerUser = async (userData: registerUserDto): Promise<User> => {
+//   const queryRunner = AppDataSource.createQueryRunner();
+//   await queryRunner.connect();
+//   try {
+//       await queryRunner.startTransaction()
+//       const newUser: User = UserRepository.create(userData);
+//       const savedUser = await queryRunner.manager.save(newUser);
       
-      await queryRunner.commitTransaction();
+//       await queryRunner.commitTransaction();
 
-      const username = userData.username;
-      const password = userData.password;
+//       const username = userData.username;
+//       const password = userData.password;
       
-      const credentialData = {
-          username,
-          password,
-          userId: savedUser.id,
-      }
-      const newCredential = await createCredentialService(credentialData);
-      
-      savedUser.credential = newCredential; 
-      await queryRunner.manager.save(savedUser);
-
-      
-      return newUser;
-   } catch (error) {
-  await queryRunner.rollbackTransaction();
-  console.error("Error en el registro:", error);
-  throw new Error("Error al registrar el usuario");
-
-  } finally {
-  await queryRunner.release();
-  }
-}
-
-// export const loginUserService = async (user: loginUserDto): Promise<loginUserSucessDto> => {
-//   const credentialId: number | undefined = await validateCredentialService(user.username, user.password);
-
-//   const userFound: User | null = await UserRepository.findOne({
-//     where: {
-//       credentials: {
-//         id: credentialId
+//       const credentialData = {
+//           username,
+//           password,
+//           userId: savedUser.id,
 //       }
-//     }
-//   })
-//   return {
-//     login: true,
-//     user: {
-//       id: userFound?.id ?? 0,
-//       name: userFound?.name ?? "",
-//       email: userFound?.email ?? "",
-//       birthdate: userFound?.birthdate ?? new Date(),
-//       nDni: userFound?.nDni ?? 0
-//     }
+//       const newCredential = await createCredentials(credentialData);
+      
+//       savedUser.credential = newCredential; 
+//       await queryRunner.manager.save(savedUser);
+
+      
+//       return newUser;
+//    } catch (error) {
+//   await queryRunner.rollbackTransaction();
+//   console.error("Error en el registro:", error);
+//   throw new Error("Error al registrar el usuario");
+
+//   } finally {
+//   await queryRunner.release();
 //   }
 // }
+
+
+
+export const loginUser= async (user: loginUserDto): Promise<loginUserSucessDto> => {
+  const credentialId: number | undefined = await validateCredentialService(user.username, user.password);
+
+  const userFound: User | null = await UserRepository.findOne({
+    where: {
+      credentials: {
+        id: credentialId
+      }
+    }
+  })
+  return {
+    login: true,
+    user: {
+      id: userFound?.id ?? 0,
+      name: userFound?.name ?? "",
+      email: userFound?.email ?? "",
+      birthdate: userFound?.birthdate ?? new Date(),
+      nDni: userFound?.nDni ?? 0
+    }
+  }
+}
 
 // const verifyPassword = async (userPassword: string, storedPassword: string): Promise<boolean> => {
 //   return bcrypt.compare(userPassword, storedPassword); 

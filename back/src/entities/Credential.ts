@@ -22,7 +22,7 @@ export class Credential {
     @UpdateDateColumn()
     updatedAt?: Date;
 
-    @OneToOne(() => User, (user) => user.credential)
+    @OneToOne(() => User, (user) => user.credentials)
     @JoinColumn()
     user: User
 }
