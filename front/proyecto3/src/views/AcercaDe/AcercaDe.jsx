@@ -8,7 +8,7 @@ const AcercaDe = () => {
         <div>
         <NavBar />
       </div >
-      (
+      
     <div className={styles.container}>
       
       <section className={styles.aboutSection}>

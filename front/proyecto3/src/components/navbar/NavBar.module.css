@@ -1,7 +1,8 @@
+
+
 .navbar {
   display: flex;
-  justify-content: space-between;
-
+  justify-content: space-around;
   align-items: center;
   padding: 10px 20px;
   background-color: #333; 
@@ -16,8 +17,7 @@
 .logoImage {
   width: 100px; 
   height: 100px;
-  margin-right:auto; 
- 
+  margin-right: auto; 
   display: flex;
 }
 
@@ -30,11 +30,10 @@
 
 .links {
   display: flex;
-  justify-content:space-around; 
+  justify-content: space-around; 
   text-align: center;
   gap: 40px; 
-  margin-right: 700px
-  ; 
+  margin-right: 100px;
 }
 
 .link {
@@ -45,4 +44,36 @@
 
 .link:hover {
   color: #f0f0f0;
+}
+
+/* Estilo para los botones Register y Login */
+.registerLoginButton {
+  background-color: #28a745; /* Verde para los botones */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.registerLoginButton:hover {
+  background-color: #218838; /* Verde oscuro en hover */
+}
+
+/* Estilo para el botón Logout */
+.logoutButton {
+  background-color: #dc3545; /* Rojo para logout */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: #c82333; 
 }

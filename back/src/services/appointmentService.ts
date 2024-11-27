@@ -148,34 +148,114 @@ export const createAppointment = async (appointmentData: AppointmentDTO): Promis
 };
 
 
-export const cancelAppointment= async (id: number): Promise<boolean | undefined> => {
-  try {
+// export const cancelAppointment= async (id: number): Promise<boolean | undefined> => {
+//   try {
 
-    console.log("ID recibido en el servicio:", id);
+//     console.log("ID recibido en el servicio:", id);
     
-    const appointment = await AppointmentRepository.findOneBy({id});
+//     const appointment = await AppointmentRepository.findOneBy({id});
+//     console.log("Turno encontrado en la base de datos:", appointment);
+    
+//     if (!appointment) {
+//       console.error("Error: Turno no encontrado para ID:", id);
+//       throw new Error("Turno no encontrado");
+//     }
+    
+//     const result = await AppointmentRepository.update({ id }, { status: appointmentStatus.cancelled });
+//     console.log("Resultado del update:", result);
+    
+//     if (result.affected === 0) {
+//       console.error("Error: No se pudo actualizar el estado del turno para ID:", id);
+//       throw new Error("No se pudo actualizar el estado del turno");
+//     }
+    
+//     console.log("Estado del turno actualizado con éxito");
+//     return true;
+//   } catch(err) {
+//     console.log({err});
+    
+//   }
+// };
+
+
+// nuevo
+// export const cancelAppointment = async (id: number): Promise<boolean | undefined> => {
+//   try {
+//     console.log("ID recibido en el servicio:", id);
+    
+//     const appointment = await AppointmentRepository.findOneBy({ id });
+//     console.log("Turno encontrado en la base de datos:", appointment);
+    
+//     if (!appointment) {
+//       console.error("Error: Turno no encontrado para ID:", id);
+//       throw new Error("Turno no encontrado");
+//     }
+    
+//     // Verifica si el turno está activo antes de intentar cancelarlo
+//     if (appointment.status === 'cancelled') {
+//       console.error("Error: El turno ya está cancelado y no puede ser cancelado nuevamente");
+//       throw new Error("El turno ya está cancelado y no puede ser cancelado nuevamente");
+//     }
+    
+//     const result = await AppointmentRepository.update({ id }, { status: appointmentStatus.cancelled });
+//     console.log("Resultado del update:", result);
+    
+//     if (result.affected === 0) {
+//       console.error("Error: No se pudo actualizar el estado del turno para ID:", id);
+//       throw new Error("No se pudo actualizar el estado del turno");
+//     }
+    
+//     console.log("Estado del turno actualizado con éxito");
+//     return true;
+//   } catch (err) {
+//     console.log({ err });
+//     throw new Error('Error al cancelar el turno');
+//   }
+// };
+
+
+
+
+// EL MAS NUEVO XD
+export const cancelAppointment = async (appointmentId: number): Promise<boolean | undefined> => {
+  try {
+    console.log("ID recibido en el servicio:", appointmentId);
+    
+    // Busca el turno por su appointmentId único
+    const appointment = await AppointmentRepository.findOneBy({ id: appointmentId });
     console.log("Turno encontrado en la base de datos:", appointment);
     
     if (!appointment) {
-      console.error("Error: Turno no encontrado para ID:", id);
+      console.error("Error: Turno no encontrado para ID:", appointmentId);
       throw new Error("Turno no encontrado");
     }
     
-    const result = await AppointmentRepository.update({ id }, { status: appointmentStatus.cancelled });
+    // Verifica si el turno ya está cancelado
+    if (appointment.status === 'cancelled') {
+      console.error("Error: El turno ya está cancelado y no puede ser cancelado nuevamente");
+      throw new Error("El turno ya está cancelado y no puede ser cancelado nuevamente");
+    }
+    
+    // Actualiza el estado del turno a 'cancelled'
+    const result = await AppointmentRepository.update({ id: appointmentId }, { status: 'cancelled' });
     console.log("Resultado del update:", result);
     
     if (result.affected === 0) {
-      console.error("Error: No se pudo actualizar el estado del turno para ID:", id);
+      console.error("Error: No se pudo actualizar el estado del turno para ID:", appointmentId);
       throw new Error("No se pudo actualizar el estado del turno");
     }
     
     console.log("Estado del turno actualizado con éxito");
     return true;
-  } catch(err) {
-    console.log({err});
-    
+  } catch (err) {
+    console.log({ err });
+    throw new Error('Error al cancelar el turno');
   }
 };
+
+
+
+
     // if (!appointment) {
     //     return null;
     // }
@@ -183,3 +263,26 @@ export const cancelAppointment= async (id: number): Promise<boolean | undefined>
     // appointment.status = UserStatus.CANCELLED;
 
     // return appointment;
+    // export const cancelAppointment= async (id: number): Promise<boolean> => {
+    //   try {
+    //     const appointment = await AppointmentRepository.findOneBy({ id });
+    
+    //     if (!appointment) {
+    //       console.error(`Turno no encontrado para el ID: ${id}`);
+    //       return false; // Si el turno no existe, retornamos false
+    //     }
+    
+    //     // Actualizamos el estado del turno a "cancelado"
+    //     const result = await AppointmentRepository.update({ id }, { status: appointmentStatus.cancelled });
+    
+    //     if (result.affected === 0) {
+    //       console.error('No se pudo actualizar el estado del turno');
+    //       return false; // Si no se actualizó, retornamos false
+    //     }
+    
+    //     return true; // Si todo salió bien, retornamos true
+    //   } catch (err) {
+    //     console.error('Error al cancelar el turno:', err);
+    //     throw err; // Propagamos el error para que sea manejado en el controlador
+    //   }
+    // };

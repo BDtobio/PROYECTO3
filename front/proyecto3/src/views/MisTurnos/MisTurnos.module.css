@@ -1,4 +1,4 @@
-
+/* 
 .turnosContainer {
     display: flex;
     flex-direction: column;
@@ -30,5 +30,112 @@
   
   button:hover {
     background-color: #2c6e1f;
+  }
+   */
+
+
+   .container {
+    font-family: 'Playfair Display', serif; /* Fuente elegante */
+    background: #f8f5f0; /* Fondo cálido y suave */
+    color: #2c2c2c; /* Texto oscuro para buen contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #a33f10; /* Tono cálido inspirado en la terracota */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    background: linear-gradient(135deg, #d57e1e, #a33f10); /* Degradado cálido */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px 0;
+    display: block;
+    text-align: center;
+    transition: transform 0.2s ease, background 0.3s ease;
+  }
+  
+  .button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #a33f10, #d57e1e); /* Inversión del degradado */
+  }
+  
+  .button:active {
+    transform: scale(0.98);
+  }
+  
+  .appointment {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .appointment:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .appointment h3 {
+    font-size: 1.5rem;
+    color: #2c2c2c;
+  }
+  
+  .appointment p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .appointment .status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .appointment .status.active {
+    color: #fff;
+    background: #4caf50; /* Verde para "activo" */
+  }
+  
+  .appointment .status.cancelled {
+    color: #fff;
+    background: #f44336; /* Rojo para "cancelado" */
+  }
+  
+  .modal {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
   }
   

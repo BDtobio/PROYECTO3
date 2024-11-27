@@ -61,3 +61,39 @@
 .appointment button:hover {
   background-color: #c2185b;
 }
+
+
+.appointment {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.status {
+  font-weight: bold;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.active {
+  color: green;
+}
+
+.cancelled {
+  color: red;
+}
+
+.cancelButton {
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cancelButton:hover {
+  background-color: darkred;
+}

@@ -1,101 +1,202 @@
-import { useState } from 'react';
 
-const LoginUserForm = () => {
+
+
+
+// /* eslint-disable react/prop-types */
+// import { useState } from "react";
+// import axios from "axios";
+// import styles from "../Login/LoginUserForm.module.css";
+// import { useUserContext } from "../../context/UserContext"; // Importa el hook del contexto
+
+// const Login = ({ isOpen, onClose }) => {
+//   const { loginUser } = useUserContext(); // Obtén la función para actualizar el usuario
+//   const [formData, setFormData] = useState({
+//     username: '',
+//     password: '',
+//   });
+//   const [message, setMessage] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prevData) => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!formData.username || !formData.password) {
+//       setMessage('Por favor, completa todos los campos.');
+//       return;
+//     }
+
+//     setLoading(true);
+//     try {
+//       const response = await axios.post("http://localhost:3000/users/login", formData);
+//       loginUser(response.data.user); // Actualiza el estado del usuario en el contexto
+//       setMessage("¡Login exitoso! Benvenuto.");
+//     } catch (error) {
+//       console.error("Error en el login:", error);
+//       setMessage("Error. Verifica tus credenciales.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   if (!isOpen) return null;
+
+//   return (
+//     <div className={styles.modalBackdrop} onClick={onClose}>
+//       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+//         <h2 className={styles.title}>Iniciar Sesión</h2>
+//         <form onSubmit={handleSubmit} className={styles.form}>
+//           <div className={styles.inputGroup}>
+//             <label htmlFor="username">Usuario</label>
+//             <input
+//               type="text"
+//               id="username"
+//               name="username"
+//               value={formData.username}
+//               onChange={handleChange}
+//               placeholder="Tu usuario"
+//               className={styles.input}
+//             />
+//           </div>
+//           <div className={styles.inputGroup}>
+//             <label htmlFor="password">Contraseña</label>
+//             <input
+//               type="password"
+//               id="password"
+//               name="password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               placeholder="Tu contraseña"
+//               className={styles.input}
+//             />
+//           </div>
+//           <button type="submit" disabled={loading} className={styles.submitButton}>
+//             {loading ? "Cargando..." : "Iniciar Sesión"}
+//           </button>
+//         </form>
+//         {message && <p className={styles.message}>{message}</p>}
+//         <button onClick={onClose} className={styles.closeButton}>
+//           Cerrar
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Login;
+
+
+
+// EL ULTIMO QUE FUNCIONA XD
+
+
+
+import { useContext, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
+import styles from './LoginUserForm.module.css'; // Importar el módulo de CSS
+import { UsersContext } from '../../context/UserContext';
+
+const Login = () => {
+  const {loginUser}=useContext(UsersContext)
+
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
   });
 
-  const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Usamos useNavigate para la redirección
 
-  const handleInputChange = (e) => {
+  // Maneja los cambios en los inputs
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.username.trim()) newErrors.username = 'El nombre de usuario es requerido.';
-    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Introduce un correo válido.';
-    }
-    if (!formData.password.trim()) newErrors.password = 'La contraseña es requerida.';
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  // Verifica que los campos estén completos
+  const isFormValid = () => {
+    return formData.username.trim() !== '' && formData.password.trim() !== '';
   };
 
-  const handleSubmit = (e) => {
+  // Maneja el envío del formulario
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      // Simula el inicio de sesión (puedes reemplazar esta lógica con una API)
-      console.log('Datos enviados para login:', formData);
-      setMessage('Inicio de sesión exitoso.');
-      setFormData({
-        username: '',
-        email: '',
-        password: '',
-      });
-      setErrors({});
-    } else {
-      setMessage('');
+    if (!isFormValid()) {
+      setMessage('Por favor, completa todos los campos.');
+      return;
+    }
+
+    setLoading(true); // Indicamos que se está procesando la petición
+    try {
+      loginUser(formData)
+      // const response = await axios.post('http://localhost:3000/users/login', formData);
+      navigate('/');
+      
+      if (response.status === 200) {
+        setMessage('Inicio de sesión exitoso. ¡Bienvenido!');
+        // Almacena el token o usuario si es necesario
+        localStorage.setItem('user', JSON.stringify(response.data.user)); // O ajusta esto según la respuesta de tu API
+        setFormData({
+          username: '',
+          password: '',
+        });
+
+        // Redirige al usuario a la página principal después de iniciar sesión
+        
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      setMessage('Ocurrió un error al iniciar sesión. Verifica tus datos.');
+    } finally {
+      setLoading(false); // Termina la carga de la petición
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
-      <h2>Iniciar Sesión</h2>
-
-      <div>
-        <label htmlFor="username">Nombre de Usuario:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
+    <div className={styles.container}>
+      <div className={styles.formcontainer}>
+        <h2>Iniciar sesión</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="username">Nombre de Usuario:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Contraseña:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" disabled={loading || !isFormValid()}>
+            {loading ? 'Cargando...' : 'Iniciar sesión'}
+          </button>
+        </form>
+        {message && <p className={message.includes('error') ? styles.error : styles.success}>{message}</p>}
       </div>
-
-      <div>
-        <label htmlFor="email">Correo Electrónico:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="password">Contraseña:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
-      </div>
-
-      <button type="submit">Iniciar Sesión</button>
-      {message && <p style={{ color: 'green', marginTop: '10px' }}>{message}</p>}
-    </form>
+    </div>
   );
 };
 
-export default LoginUserForm;
+export default Login;

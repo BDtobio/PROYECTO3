@@ -130,8 +130,35 @@ export const cancelAppointmentController= async (req: Request< { id: string } >,
     console.log(req.params)
     const appointment = await cancelAppointment(Number(id));
     console.log(req.params)
+    
+
         res.status(200).json({message: "Turno cancelado", appointment: appointment});
     } catch(err) {
      res.status(404).json({ message: "No se ha podido completar la solicitud", err });
     }
 }
+
+
+
+// export const cancelAppointmentController = async (req: Request<{ id: string }>, res: Response) => {
+//   try {
+//     const { id } = req.params;
+//     console.log("ID recibido para cancelar:", id);
+
+//     // Llamamos al servicio para cancelar el turno
+//     const appointment = await cancelAppointment(Number(id));
+
+//     // Si la cancelación es exitosa
+//     if (appointment) {
+//       res.status(200).json({ message: "Turno cancelado", appointment: appointment });
+//     } else {
+//       // Si no se encontró el turno
+//       res.status(404).json({ message: "No se encontró el turno para cancelar" });
+//     }
+//   } catch (err) {
+//     console.error("Error al cancelar el turno:", err);
+//     res.status(404).json({ message: "No se ha podido completar la solicitud", error: err });
+// }
+
+//   };
+

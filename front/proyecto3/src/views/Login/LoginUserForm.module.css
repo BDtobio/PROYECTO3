@@ -1,0 +1,255 @@
+/* .modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 4px solid #007a33; /* Verde de la bandera italiana */
+    /* position: relative; */
+  /* }
+  
+  .title {
+    font-family: "Times New Roman", serif;
+    color: #d32f2f; /* Rojo italiano */
+    /* text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #007a33; 
+  }
+   */
+  /* .input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #cccccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input:focus {
+    border-color: #007a33;
+  }
+  
+  .submitButton {
+    background: #007a33; 
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background: #005a25;
+  }
+  
+  .message {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #d32f2f; 
+  }
+  
+  .closeButton {
+    background: #d32f2f; 
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+  }
+  
+  .closeButton:hover {
+    background: #a5281e;
+  } 
+    */
+
+    /* Estilos comunes para ambos componentes */
+
+/* Login.module.css */
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f0f0, #ffffff);
+  position: relative;
+  overflow: hidden;
+}
+
+.backgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.navLogin {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 1;
+}
+
+.ancla {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.titlelogo {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #8b1a1a;
+  margin-left: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.formContainer {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Lora', serif;
+  font-weight: 700;
+}
+
+hr {
+  border: 0;
+  border-top: 2px solid #b22222;
+  margin-bottom: 20px;
+}
+
+.divInput {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.formInput {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.formInput:focus {
+  border-color: #b22222;
+  outline: none;
+}
+
+.errorText {
+  color: #b22222;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.buttonLogin {
+  background-color: #b22222;
+  color: white;
+  font-size: 1.2rem;
+  padding: 15px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.buttonLogin:hover {
+  background-color: #800000;
+}
+
+.successMessage, .errorMessage {
+  margin-top: 15px;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.successMessage {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.errorMessage {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.linkRegisterContainer {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.linkRegister {
+  color: #b22222;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.linkRegister:hover {
+  text-decoration: underline;
+}

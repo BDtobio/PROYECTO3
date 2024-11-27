@@ -1,4 +1,4 @@
-
+/* 
 .reservations {
     position: relative;
     background-image: url("https://thumbs.dreamstime.com/b/gente-comiendo-y-bebiendo-en-el-restaurante-de-la-calle-roma-vida-nocturna-sentada-trastevere-distrito-est%C3%A1-lleno-caf%C3%A9s-pubs-247676082.jpg"); 
@@ -12,7 +12,7 @@
  
   }
   
-  /* Sombra sutil */
+
   .overlay {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 3rem;
@@ -21,27 +21,27 @@
     text-align: center;
     width: 90%;
     max-width: 500px;
-    border: 3px solid #e63946; /* Bordes decorativos inspirados en el rojo italiano */
+    border: 3px solid #e63946; 
   }
   
  
   
-  /* Título */
+  
   .title {
     font-size: 3rem;
-    color: #e63946; /* Rojo italiano */
+    color: #e63946; 
     margin-bottom: 2rem;
     text-transform: uppercase;
   }
   
-  /* Estilo del formulario */
+
   .form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
   
-  /* Estilo de cada grupo de inputs */
+  
   .inputGroup {
     display: flex;
     flex-direction: column;
@@ -53,7 +53,7 @@
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #f4a261; /* Tonos cálidos */
+    color: #f4a261; 
   }
   
   .inputGroup input {
@@ -64,4 +64,52 @@
     font-size: 1rem;
     background-color: #fff;
     color: #333;
-  }
+  } */
+
+
+  /* Reservaciones.module.css */
+/* src/components/Reserva.module.css */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff4e6; /* Color cálido de fondo */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #d9534f; /* Rojo italiano */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #d9534f; /* Rojo italiano */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+.message {
+  margin-top: 20px;
+  text-align: center;
+  color: #5bc0de; /* Color para mensajes de éxito */
+}

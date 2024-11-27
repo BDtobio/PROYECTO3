@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,8 +12,8 @@
 }
 
 .modalContent {
-  background-color: white;
   padding: 20px;
+  background-color: white;
   border-radius: 5px;
   position: relative;
   width: 80%;
@@ -28,4 +28,109 @@
   background: transparent;
   border: none;
   cursor: pointer;
+}
+.navRegister img{
+ 
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 300px;
+  width: 100%;
+}
+ */
+/* Estilos comunes para ambos componentes */
+
+/* Contenedor principal del formulario */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Título */
+h2 {
+  font-family: 'Georgia', serif;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Etiquetas de los campos */
+label {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Estilo de los inputs */
+input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+/* Cambio de color en los inputs cuando están enfocados */
+input:focus {
+  border-color: #8b0000;
+  outline: none;
+}
+
+/* Botón de enviar */
+button {
+  background-color: #8b0000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #b22222;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Mensajes de éxito o error */
+.success {
+  color: green;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  button {
+    width: 100%;
+  }
 }
