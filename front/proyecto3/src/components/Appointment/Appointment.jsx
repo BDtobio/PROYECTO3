@@ -293,8 +293,8 @@ function showAlert(icon, title, text) {
       width: '400px',
       color: '##F5F5DC', 
       background: '#F5F5DC', 
-      iconColor: '#3C8C91', 
-      confirmButtonColor: '#3C8C91', 
+      iconColor: '#FF0000', 
+      confirmButtonColor: '#FF0000', 
   });
 }
 

@@ -1,6 +1,6 @@
 
 
-import NavBar from "../../components/navbar/NavBar";
+
 import styles from "./Home.module.css"
 // import image3 from '../../images/image3.png';
 import plato1 from '../../images/plato1.png';
@@ -21,10 +21,7 @@ const Home= () =>{
       <div>   
    
       
-        <div>
         
-        <NavBar />
-     </div>
     <div className={styles.container}>
 
 

@@ -60,6 +60,7 @@ export const UsersProvider = ({ children }) => {
 
   const value = {
     user,
+    setUser,
     userAppointments,
     registerUser,
     loginUser,

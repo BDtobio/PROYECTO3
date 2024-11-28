@@ -1,7 +1,3 @@
-
-
-
-
 // /* eslint-disable react/prop-types */
 // import { useState } from "react";
 // import axios from "axios";
@@ -92,75 +88,84 @@
 
 // export default Login;
 
-
-
 // EL ULTIMO QUE FUNCIONA XD
 
-
-
-import { useContext, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
-import styles from './LoginUserForm.module.css'; // Importar el módulo de CSS
-import { UsersContext } from '../../context/UserContext';
+import { useContext, useState } from "react";
+// import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import styles from "./LoginUserForm.module.css";
+import { UsersContext } from "../../context/UserContext";
 
 const Login = () => {
-  const {loginUser}=useContext(UsersContext)
+  const { loginUser } = useContext(UsersContext);
 
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Usamos useNavigate para la redirección
+  const navigate = useNavigate();
 
-  // Maneja los cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   // Verifica que los campos estén completos
-  const isFormValid = () => {
-    return formData.username.trim() !== '' && formData.password.trim() !== '';
-  };
-
+  // const isFormValid = () => {
+  //   return formData.username.trim() !== "" && formData.password.trim() !== "";
+  // };
+  
   // Maneja el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!isFormValid()) {
+    if (formData.username.trim() === '' || formData.password.trim() === '') {
       setMessage('Por favor, completa todos los campos.');
       return;
     }
 
-    setLoading(true); // Indicamos que se está procesando la petición
+    // if (!isFormValid()) {
+    //   setMessage("Por favor, completa todos los campos.");
+    //   return;
+    // }
+    setLoading(true);
     try {
-      loginUser(formData)
-      // const response = await axios.post('http://localhost:3000/users/login', formData);
-      navigate('/');
-      
-      if (response.status === 200) {
-        setMessage('Inicio de sesión exitoso. ¡Bienvenido!');
-        // Almacena el token o usuario si es necesario
-        localStorage.setItem('user', JSON.stringify(response.data.user)); // O ajusta esto según la respuesta de tu API
-        setFormData({
-          username: '',
-          password: '',
-        });
-
-        // Redirige al usuario a la página principal después de iniciar sesión
-        
-      }
-    // eslint-disable-next-line no-unused-vars
+      await loginUser(formData); // Llamamos al método del contexto
+      setMessage('Inicio de sesión exitoso. ¡Bienvenido!');
+      navigate('/'); // Redirigimos al home
     } catch (error) {
       setMessage('Ocurrió un error al iniciar sesión. Verifica tus datos.');
     } finally {
-      setLoading(false); // Termina la carga de la petición
+      setLoading(false);
     }
   };
+
+  //   setLoading(true); // Indicamos que se está procesando la petición
+  //   try {
+  //     await loginUser(formData);
+  //     // const response = await axios.post('http://localhost:3000/users/login', formData);
+  //     navigate("/");
+
+  //     if (response.status === 200) {
+  //       setMessage("Inicio de sesión exitoso. ¡Bienvenido!");
+  //       // Almacena el token o usuario si es necesario
+  //       localStorage.setItem("user", JSON.stringify(response.data.user)); // O ajusta esto según la respuesta de tu API
+  //       setFormData({
+  //         username: "",
+  //         password: "",
+  //       });
+
+        
+  //     }
+      
+  //   } catch (error) {
+  //     setMessage("Ocurrió un error al iniciar sesión. Verifica tus datos.");
+  //   } finally {
+  //     setLoading(false); // Termina la carga de la petición
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
@@ -189,7 +194,7 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" disabled={loading || !isFormValid()}>
+          <button type="submit" disabled={loading}>
             {loading ? 'Cargando...' : 'Iniciar sesión'}
           </button>
         </form>

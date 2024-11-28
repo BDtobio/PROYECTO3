@@ -6,11 +6,13 @@ import LoginUserForm from "./views/Login/LoginUserForm"
 import AcercaDe from './views/AcercaDe/AcercaDe';
 import Reservaciones from "./views/Reservaciones/Reservacion";
 import {Route, Routes } from 'react-router-dom';
+import NavBar from "./components/navbar/NavBar";
 // import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-  
+    <>
+    <NavBar/>
     <Routes>
       
       <Route path="/" element={<Home />} />  
@@ -20,7 +22,7 @@ function App() {
        <Route path="/register" element={<Register/>}/>
       <Route path="/login" element ={<LoginUserForm/>}/>
     </Routes>
-  
+    </>
   );
 }
 

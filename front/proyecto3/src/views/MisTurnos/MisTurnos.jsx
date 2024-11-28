@@ -272,7 +272,7 @@ const MisTurnos = () => {
 
   return (
     <div>
-      <NavBar />
+      
       <h1>Mis Turnos</h1>
       <div className={styles.turnosContainer}>
         {userAppointments.map((appointment,index) => (
