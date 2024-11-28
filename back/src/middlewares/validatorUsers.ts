@@ -30,8 +30,8 @@ export const validateUser = (req: Request, res: Response, next: NextFunction): v
     return;
   }
 
-  if (typeof password !== "string" || password.length < 6) {
-    res.status(400).json({ message: "El campo 'password' debe ser un string de al menos 6 caracteres." });
+  if (typeof password !== "string" || password.length < 4) {
+    res.status(400).json({ message: "El campo 'password' debe ser un string de al menos 4 caracteres." });
     return;
   }
 

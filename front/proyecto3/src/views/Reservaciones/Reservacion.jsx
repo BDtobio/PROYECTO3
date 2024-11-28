@@ -58,7 +58,7 @@ console.log(formData);
         alert('error', message, data);
       } else {
         console.error("Error desconocido:", error);
-        alert('error', 'Error desconocido', 'Ocurrió un error inesperado al realizar la reserva.');
+        alert(' error', 'Error desconocido', 'Ocurrió un error inesperado al realizar la reserva.');
       }
     }
 
