@@ -2,7 +2,7 @@
 
 
 
-// ULTIMO FUCNIONAL
+
 
 import { useState,useEffect, useContext} from "react";
 
@@ -11,9 +11,9 @@ import Appointment from "../../components/Appointment/Appointment";
 
 import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../../context/UserContext";
-// import axios from "axios";
+
 const MisTurnos = () => {
-  // const [appointments, setAppointments] = useState([]);
+ 
   const navigate = useNavigate();
   const { user, userAppointments, renderAppointments } = useContext(UsersContext);
 

@@ -35,9 +35,9 @@
 
 
    .container {
-    font-family: 'Playfair Display', serif; /* Fuente elegante */
-    background: #f8f5f0; /* Fondo cálido y suave */
-    color: #2c2c2c; /* Texto oscuro para buen contraste */
+    font-family: 'Playfair Display', serif; 
+    background: #f8f5f0; 
+    color: #2c2c2c; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -47,13 +47,13 @@
   
   h1 {
     font-size: 2.5rem;
-    color: #a33f10; /* Tono cálido inspirado en la terracota */
+    color: #a33f10; 
     text-align: center;
     margin-bottom: 20px;
   }
   
   .button {
-    background: linear-gradient(135deg, #d57e1e, #a33f10); /* Degradado cálido */
+    background: linear-gradient(135deg, #d57e1e, #a33f10);
     color: #fff;
     padding: 10px 20px;
     font-size: 1.2rem;
@@ -68,7 +68,7 @@
   
   .button:hover {
     transform: scale(1.05);
-    background: linear-gradient(135deg, #a33f10, #d57e1e); /* Inversión del degradado */
+    background: linear-gradient(135deg, #a33f10, #d57e1e); 
   }
   
   .button:active {
@@ -110,12 +110,12 @@
   
   .appointment .status.active {
     color: #fff;
-    background: #4caf50; /* Verde para "activo" */
+    background: #4caf50; 
   }
   
   .appointment .status.cancelled {
     color: #fff;
-    background: #f44336; /* Rojo para "cancelado" */
+    background: #f44336; 
   }
   
   .modal {

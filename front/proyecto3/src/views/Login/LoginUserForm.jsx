@@ -49,6 +49,7 @@ const Login = () => {
 
 
   return (
+   <div className={styles.body}>
     <div className={styles.container}>
       <div className={styles.formcontainer}>
         <h2>Iniciar sesión</h2>
@@ -81,6 +82,7 @@ const Login = () => {
         </form>
         {message && <p className={message.includes('error') ? styles.error : styles.success}>{message}</p>}
       </div>
+    </div>
     </div>
   );
 };

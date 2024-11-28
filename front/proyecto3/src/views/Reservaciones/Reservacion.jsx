@@ -1,8 +1,7 @@
 
 import { useContext, useEffect, useState } from 'react';
-// import axios from 'axios';
 import styles from './Reservacion.module.css';
-import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { UsersContext } from '../../context/UserContext';
 
 
@@ -23,20 +22,20 @@ const Reservaciones = () => {
 
   const [message, setMessage] = useState('');
   
-  const navigate = useNavigate(); // Instanciamos el hook para redirecciones
+  const navigate = useNavigate();
 
-  // Maneja los cambios en los inputs
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Verifica que los campos estén completos
+  
   const isFormValid = () => {
     return formData.date.trim() !== '' && formData.time.trim() !== '';
   };
 
-  // Maneja el envío del formulario
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   

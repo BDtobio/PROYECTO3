@@ -23,14 +23,7 @@ export const validateUser = (req: Request, res: Response, next: NextFunction): v
     res.status(400).json({ message: "El campo 'birthdate' debe ser una fecha válida en formato ISO 8601 (YYYY-MM-DD)." });
     return;
   }
-  // if (typeof nDni !== "number" || !Number.isInteger(nDni) || nDni.toString().length !== 8) {
-  //   res.status(400).json({ message: "El campo 'nDni' debe ser un número entero de 8 dígitos." });
-  //   return;
-  // }
-  // if (typeof nDni !== "number" || !Number.isInteger(nDni)) {
-  //   res.status(400).json({ message: "El campo 'nDni' debe ser un número entero." });
-  //   return;
-  // }
+  
 
   if (typeof username !== "string") {
     res.status(400).json({ message: "El campo 'username' debe ser un string." });

@@ -1,7 +1,7 @@
-// export default Register;
+
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Importamos useNavigate
+import { useNavigate } from "react-router-dom"; 
 import styles from "./RegisterUser.module.css";
 import { validateField } from "../../helpers/validateRegister";
 
@@ -17,9 +17,9 @@ const Register = () => {
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Declaramos el hook de navegación
+  const navigate = useNavigate(); 
 
-  // eslint-disable-next-line no-unused-vars
+
   const [errors, setErrors] = useState({});
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,10 +36,6 @@ const Register = () => {
       return updatedForm;
     });
   };
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
 
   const isFormValid = () => {
     return Object.values(formData).every((value) => value.trim() !== "");
@@ -78,10 +74,10 @@ const Register = () => {
           username: "",
           password: "",
         });
-        // Redirigir al usuario a la página de Login después de un registro exitoso
+  
         setTimeout(() => {
-          navigate("/login"); // Redirigimos a Login
-        }, 1000); // Esperamos 1 segundo antes de redirigir
+          navigate("/login"); 
+        }, 1000); 
       }
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
@@ -94,6 +90,7 @@ const Register = () => {
   };
 
   return (
+  <>
     <div className={styles.container}>
       <h2>Registro</h2>
       <form onSubmit={handleSubmit}>
@@ -111,7 +108,7 @@ const Register = () => {
             <span className={styles.errorText}>{errors.name}</span>
           )}
         </div>
-        <div>
+        <div className="inputContainer">
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -125,7 +122,7 @@ const Register = () => {
                     <span className={styles.errorText}>{errors.email}</span>
                     )}
         </div>
-        <div>
+        <div className="inputContainer">
           <label htmlFor="birthdate">Fecha de Nacimiento:</label>
           <input
             type="date"
@@ -193,6 +190,7 @@ const Register = () => {
         </p>
       )}
     </div>
+    </>
   );
 };
 
