@@ -4,10 +4,10 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './Reservacion.module.css';
 import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
 import { UsersContext } from '../../context/UserContext';
-import NavBar from '../../components/navbar/NavBar';
+
 
 const Reservaciones = () => {
-  const {user,createAppointment,renderAppointment}=useContext(UsersContext)
+  const {user,createAppointment}=useContext(UsersContext)
 
   const [formData, setFormData] = useState({
     date: '',

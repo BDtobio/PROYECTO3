@@ -1,46 +1,5 @@
-/* .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
 
-.modalContent {
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  position: relative;
-  width: 80%;
-  max-width: 600px;
-}
 
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-.navRegister img{
- 
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 300px;
-  width: 100%;
-}
- */
-/* Estilos comunes para ambos componentes */
-
-/* Contenedor principal del formulario */
 .container {
   display: flex;
   flex-direction: column;
@@ -53,7 +12,7 @@
   margin: 0 auto;
 }
 
-/* Título */
+
 h2 {
   font-family: 'Georgia', serif;
   color: #333;
@@ -61,7 +20,7 @@ h2 {
   font-size: 24px;
 }
 
-/* Etiquetas de los campos */
+
 label {
   font-family: 'Arial', sans-serif;
   font-size: 14px;
@@ -69,7 +28,7 @@ label {
   margin-bottom: 5px;
 }
 
-/* Estilo de los inputs */
+
 input {
   padding: 10px;
   margin-bottom: 15px;
@@ -80,13 +39,13 @@ input {
   transition: border-color 0.3s ease;
 }
 
-/* Cambio de color en los inputs cuando están enfocados */
+
 input:focus {
   border-color: #8b0000;
   outline: none;
 }
 
-/* Botón de enviar */
+
 button {
   background-color: #8b0000;
   color: white;
@@ -107,7 +66,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Mensajes de éxito o error */
+
 .success {
   color: green;
   font-size: 16px;
@@ -120,7 +79,7 @@ button:disabled {
   margin-top: 20px;
 }
 
-/* Responsive */
+
 @media (max-width: 480px) {
   .container {
     width: 90%;
