@@ -55,10 +55,10 @@ console.log(formData);
     }catch (error) {
       if (error.response) {
         const { message, data } = error.response.data;
-        alert('error', message, data);
+        alert('error en el turno,ingresaste uno existente o la fecha esta mal', message, data);
       } else {
         console.error("Error desconocido:", error);
-        alert(' error', 'Error desconocido', 'Ocurrió un error inesperado al realizar la reserva.');
+        alert(' error en el turno,ingresaste uno existente o la fecha esta mal', 'Error desconocido', 'Ocurrió un error inesperado al realizar la reserva.');
       }
     }
 
