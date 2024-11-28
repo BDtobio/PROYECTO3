@@ -14,7 +14,7 @@ const navigate=useNavigate()
   const handleLogout = () => {
     
     localStorage.removeItem('user');
-    setUser(0); // Reseteamos el estado global del usuario
+    setUser(0); 
     navigate("/login")
   };
 

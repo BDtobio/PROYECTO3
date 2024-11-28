@@ -96,11 +96,5 @@ console.log(id)
   );
 };
 
-// Appointment.propTypes = {
-//   date: PropTypes.string.isRequired, // La fecha debe ser una cadena de texto
-//   time: PropTypes.string.isRequired, // La hora debe ser una cadena de texto
-//   status: PropTypes.oneOf(["active", "cancelled"]).isRequired, // El estado debe ser 'active' o 'cancelled'
-//   onCancel: PropTypes.func.isRequired, // onCancel debe ser una función
-// };
 
 export default Appointment;

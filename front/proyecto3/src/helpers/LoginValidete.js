@@ -1,4 +1,4 @@
-// helpers/loginValidate.js
+
 
 export const validateForm = (form) => {
     const errors = {};
