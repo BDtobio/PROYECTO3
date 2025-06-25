@@ -1,4 +1,4 @@
-import Home from "./views/home/home";
+
 import MisTurnos from "./views/MisTurnos/MisTurnos"
 
 import Register from "./views/Register/RegisterUser";
@@ -10,6 +10,7 @@ import NavBar from "./components/navbar/NavBar";
 import { useContext, useEffect } from "react";
 import { UsersContext } from "./context/UserContext";
 import NotFound from "./views/notFound/notFound";
+import Home from "./views/Home/home";
 
 
 
