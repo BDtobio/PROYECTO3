@@ -23,9 +23,9 @@ function showAlert(icon, title, text) {
 
 
 
-const Appointment = ({ id, date, time, status, index}) => {
+const Appointment = ({ id, date, time, status}) => {
   const { cancelAppointment } = useContext(UsersContext);
-  const [currentStatus, setCurrentStatus] = useState(status);
+  const [currentStatus, setCurrentStatus] = useState(status)
 
 
 

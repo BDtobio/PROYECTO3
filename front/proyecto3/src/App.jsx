@@ -11,7 +11,7 @@ import { useContext, useEffect } from "react";
 import { UsersContext } from "./context/UserContext";
 import NotFound from "./views/notFound/notFound";
 
-// import { UserProvider } from "./context/UserContext";
+
 
 function App() {
   const { user } = useContext(UsersContext);
