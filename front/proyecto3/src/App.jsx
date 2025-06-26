@@ -10,7 +10,7 @@ import NavBar from "./components/navbar/NavBar";
 import { useContext, useEffect } from "react";
 import { UsersContext } from "./context/UserContext";
 import NotFound from "./views/notFound/notFound";
-import Home from "./views/Home/home";
+import Home from "./views/Home/Home";
 
 
 
