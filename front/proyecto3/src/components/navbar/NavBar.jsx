@@ -3,7 +3,7 @@
 
 import { Link, useNavigate} from 'react-router-dom';
 import { useContext} from 'react';
-import styles from './navbar.module.css';
+import styles from './NavBar.module.css';
 import logo from '../../images/logo.png';
 import { UsersContext } from '../../context/UserContext';
 
