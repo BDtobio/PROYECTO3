@@ -7,7 +7,7 @@ console.log("API URL usada en axios:", API_URL);
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  // Podés agregar aquí headers comunes, timeouts, etc.
+  
 });
 
 export default axiosInstance;
