@@ -5,6 +5,8 @@ import "reflect-metadata";
 
 const PORT = process.env.PORT || 3000;
 
+console.log("DB_HOST env var is:", process.env.DB_HOST);  // <-- Acá lo pones
+
 AppDataSource.initialize()
   .then(() => {
     console.log("Database Connection: OK!");
