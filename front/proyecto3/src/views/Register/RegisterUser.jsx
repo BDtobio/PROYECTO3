@@ -1,9 +1,10 @@
 
 import { useState } from "react";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom"; 
 import styles from "./RegisterUser.module.css";
 import { validateField } from "../../helpers/validateRegister";
+import axiosInstance from "../../api/axiosInstance";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -60,10 +61,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/users/register",
-        formData
-      );
+     const response= await axiosInstance.post("/users/register", formData);
       if (response.status === 201) {
         setMessage("Registro exitoso. ¡Bienvenido!");
         setFormData({
