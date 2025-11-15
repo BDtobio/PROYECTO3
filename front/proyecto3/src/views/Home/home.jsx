@@ -37,7 +37,7 @@ const Home= () =>{
       
       {/* Sección de platos famosos */}
       <section className={styles.platosFamosos}>
-      <h2 className={styles.sectionTitle}>Nuestros Platos Más Famosos</h2>
+      <h2 className={styles.sectionTitle}>Nuestros Platos Más Famososs</h2>
 
       {/* Plato 1 */}
       <div className={`${styles.plato} ${styles.reverse}`}>
