@@ -1,0 +1,73 @@
+.container {
+  min-height: 100vh;
+  background: #111;
+  color: white;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.table th {
+  background: #222;
+  font-weight: bold;
+}
+
+.table tr:hover {
+  background: #242424;
+}
+
+.btnEdit,
+.btnDelete {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.btnEdit {
+  background: #3a86ff;
+  color: white;
+}
+
+.btnEdit:hover {
+  background: #1f6fd8;
+}
+
+.btnDelete {
+  background: #e5383b;
+  color: white;
+}
+
+.btnDelete:hover {
+  background: #b02424;
+}
+
+.loading {
+  text-align: center;
+}
+
+.error {
+  text-align: center;
+  color: #ff6b6b;
+}

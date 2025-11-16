@@ -1,38 +1,83 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
-import axiosInstance from "../api/axiosInstance"; // ajustá ruta si hace falta
 
+import { createContext, useState } from "react";
+import axiosInstance from "../api/axiosInstance";
+
+// CONTEXTO
 export const UsersContext = createContext({
-  user: "",
+  role: null,
+  user: null,
   userAppointments: [],
   registerUser: async () => {},
   loginUser: async () => {},
+  logout: () => {},
   renderAppointments: async () => {},
   createAppointment: async () => {},
   addAppointment: () => {},
   cancelAppointment: async () => {},
 });
 
+// PROVIDER
 export const UsersProvider = ({ children }) => {
   
-  const [user, setUser] = useState(localStorage.getItem("user") ?? 0);
-  const [userAppointments, setUserAppointments] = useState([]);
-  
-  const registerUser = async (userData) => {
-      return await axiosInstance.post("/users/register", userData);
-  }
-  const loginUser = async (loginData) => {
-      const res = await axiosInstance.post("/users/login", loginData);
-      localStorage.setItem("user", res.data.user.id);
-      setUser(res.data.user.id);
-      return res;
-  }
+  // 🔥 Guardamos ROLE como principal
+  const storedRole = localStorage.getItem("role");
+  const storedUser = localStorage.getItem("user");
 
-  const renderAppointments = async (userId) => {
+  const [role, setRole] = useState(storedRole ?? null);
+  const [user, setUser] = useState(
+    storedUser && !isNaN(Number(storedUser)) ? Number(storedUser) : null
+  );
+
+  const [userAppointments, setUserAppointments] = useState([]);
+
+  // REGISTER
+  const registerUser = async (userData) => {
+    return await axiosInstance.post("/users/register", userData);
+  };
+
+  // LOGIN (UNIFICADO)
+  const loginUser = async (loginData) => {
     try {
-      const { data } = await axiosInstance.get(`/users/${userId}`);
-      setUserAppointments(data.user.appointments);
+      const res = await axiosInstance.post("/users/login", loginData);
+
+      // Guardamos role SIEMPRE
+      localStorage.setItem("role", res.data.role);
+      setRole(res.data.role);
+
+      // Usuario normal → guardamos ID
+      if (res.data.role === "user") {
+        localStorage.setItem("user", res.data.user.id);
+        setUser(res.data.user.id);
+      } else {
+        // Admin → NO usa userId
+        localStorage.removeItem("user");
+        setUser(null);
+      }
+
+      return res;
+    } catch (error) {
+      console.error("ERROR EN CONTEXT LOGINUSER:", error);
+      throw error;
+    }
+  };
+
+  // LOGOUT unificado
+  const logout = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
+    setRole(null);
+    setUser(null);
+  };
+
+  // Cargar turnos (solo user real)
+  const renderAppointments = async (userId) => {
+    if (!userId || isNaN(Number(userId))) return;
+
+    try {
+      const { data } = await axiosInstance.get(`/users/id/${userId}`);
+      setUserAppointments(data.user.appointments || []);
     } catch (error) {
       console.error("Error al obtener las citas:", error);
     }
@@ -43,31 +88,36 @@ export const UsersProvider = ({ children }) => {
   };
 
   const addAppointment = (newAppointment) => {
-    setUserAppointments((prevAppointments) => [...prevAppointments, newAppointment]);
+    setUserAppointments((prev) => [...prev, newAppointment]);
   };
 
   const cancelAppointment = async (appointmentId) => {
     try {
       await axiosInstance.put(`/appointments/cancel/${appointmentId}`);
-      const newAppointments = userAppointments.map((appointment) => 
-        appointment.id === appointmentId ? { ...appointment, status: "cancelled" } : appointment
+      const updated = userAppointments.map((appointment) =>
+        appointment.id === appointmentId
+          ? { ...appointment, status: "cancelled" }
+          : appointment
       );
-      setUserAppointments(newAppointments);
+      setUserAppointments(updated);
     } catch (error) {
       console.error("Error al cancelar la reserva", error);
     }
   };
 
   const value = {
+    role,
+    setRole,
     user,
     setUser,
     userAppointments,
     registerUser,
     loginUser,
+    logout,
     renderAppointments,
     createAppointment,
     addAppointment,
-    cancelAppointment
+    cancelAppointment,
   };
 
   return (

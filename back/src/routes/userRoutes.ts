@@ -1,12 +1,26 @@
 import { Router } from "express";
-import { getAllUsersController,getUserByIdController,registerUserController,loginUserController } from "../controllers/usersController";
-// import { checkCredentials } from "../services/credentialsService";
-import { validateUser } from "../middlewares/validatorUsers"; 
-// import auth from "../middlewares/auth";
-const userRoutes:Router=Router();
-userRoutes.get("/",getAllUsersController)
-userRoutes.get("/:id",getUserByIdController)
-userRoutes.post("/register",validateUser,registerUserController)
-userRoutes.post("/login",loginUserController)
+import { 
+  getAllUsersController,
+  getUserByIdController,
+  registerUserController,
+  loginUserController,
 
- export default userRoutes;
+} from "../controllers/usersController";
+
+import { validateUser } from "../middlewares/validatorUsers";
+
+const userRoutes: Router = Router();
+
+// ---- ADMIN LOGIN ----
+
+// ---- USER LOGIN & REGISTER ----
+userRoutes.post("/login", loginUserController);
+userRoutes.post("/register", validateUser, registerUserController);
+
+// ---- GET USERS ----
+userRoutes.get("/", getAllUsersController);
+
+// ---- DINÁMICA (DEBE IR AL FINAL) ----
+userRoutes.get("/:id", getUserByIdController);
+
+export default userRoutes;

@@ -8,12 +8,24 @@
 //     hmr: false,  
 //   },
 // })
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+// import { defineConfig } from 'vite';
+// import react from '@vitejs/plugin-react';
+
+// export default defineConfig({
+//   plugins: [react()],
+//   server: {
+//     hmr: false,  
+//   }
+// })
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
   server: {
-    hmr: false,  
+    hmr: true, 
+    watch: {
+      usePolling: true, // esto asegura que Windows detecte cambios
+    }
   }
 })

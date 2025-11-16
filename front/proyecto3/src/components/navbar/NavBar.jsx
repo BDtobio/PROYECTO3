@@ -1,21 +1,21 @@
-
-
-
-import { Link, useNavigate} from 'react-router-dom';
-import { useContext} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import styles from './NavBar.module.css';
 import logo from '../../images/logo.png';
 import { UsersContext } from '../../context/UserContext';
 
 const NavBar = () => {
-  const { user, setUser } = useContext(UsersContext);
-const navigate=useNavigate()
+  const { role, logout } = useContext(UsersContext);
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    
-    localStorage.removeItem('user');
-    setUser(0); 
-    navigate("/login")
+    logout();
+    navigate("/login");
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -25,24 +25,41 @@ const navigate=useNavigate()
         <h1>ITALY TASTY</h1>
       </div>
 
-      <div className={styles.links}>
+      {/* Botón hamburguesa */}
+      <div className={styles.hamburger} onClick={toggleMenu}>
+        <div className={styles.bar}></div>
+        <div className={styles.bar}></div>
+        <div className={styles.bar}></div>
+      </div>
+
+      <div className={`${styles.links} ${menuOpen ? styles.active : ''}`}>
         <Link to="/" className={styles.link}>Home</Link>
-        <Link to="/reservaciones" className={styles.link}>Reservaciones</Link>
-        {user !== 0 && (
-          <Link to="/mis-turnos" className={styles.link}>Mis Turnos</Link>
+
+        {/* Solo usuarios normales */}
+        {role === "user" && (
+          <>
+            <Link to="/reservaciones" className={styles.link}>Reservaciones</Link>
+            <Link to="/mis-turnos" className={styles.link}>Mis Turnos</Link>
+          </>
         )}
+
         <Link to="/acerca-de" className={styles.link}>Acerca de</Link>
 
-        {user === 0 ? (
+        {/* Zona Admin */}
+        {role === "admin" && (
+          <Link to="/admin" className={styles.link}>
+            Panel Admin
+          </Link>
+        )}
+
+        {/* Botones Login/Register */}
+        {!role ? (
           <>
             <Link to="/register" className={`${styles.link} ${styles.registerLoginButton}`}>Register</Link>
             <Link to="/login" className={`${styles.link} ${styles.registerLoginButton}`}>Login</Link>
           </>
         ) : (
-          <button
-            className={styles.logoutButton}
-            onClick={handleLogout}
-          >
+          <button className={styles.logoutButton} onClick={handleLogout}>
             Logout
           </button>
         )}

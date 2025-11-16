@@ -4,7 +4,6 @@ import { getUserById, getAllUsers, registerUser,loginUser} from "../services/use
 import { loginUserDto, loginUserSucessDto, registerUserDto } from "../dtos/userDto";
 
 
-
 export const getAllUsersController = async (req: Request, res: Response) => {
     try {
         const users = await getAllUsers();
@@ -37,12 +36,54 @@ export const registerUserController = async (req: Request< unknown, unknown,regi
         res.status(400).json({message: "Hubo un error en el registro"})
     }
 }
+export const loginUserController = async (req: Request, res: Response): Promise<void> => {
+  const { username, password } = req.body;
 
-export const loginUserController = async (req: Request < unknown, unknown, loginUserDto >, res: Response) => {
-    try {
-        const response: loginUserSucessDto = await loginUser(req.body)
-        res.status(200).json(response);
-    } catch(error) {
-        res.status(400).json({ message: "No se ha podido completar la solicitud", error });
-    }
-}
+  const ADMIN_USER = process.env.ADMIN_USER;
+  const ADMIN_PASS = process.env.ADMIN_PASS;
+
+  // ADMIN LOGIN
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    res.status(200).json({
+      login: true,
+      role: "admin",
+      user: { id: "admin" } // <<=== CAMBIO IMPORTANTE
+    });
+    return;
+  }
+
+  // NORMAL USER LOGIN
+  try {
+    const response: loginUserSucessDto = await loginUser(req.body);
+
+    res.status(200).json({
+      ...response,
+      role: "user",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Usuario o contraseña incorrectos",
+      error,
+    });
+  }
+};
+
+// export const loginAdminController: RequestHandler = async (req, res) => {
+//   const { username, password } = req.body;
+
+//   const ADMIN_USER = process.env.ADMIN_USER;
+//   const ADMIN_PASS = process.env.ADMIN_PASS;
+
+//   if (username === ADMIN_USER && password === ADMIN_PASS) {
+//     res.status(200).json({
+//       ok: true,
+//       message: "Login exitoso"
+//     });
+//     return;
+//   }
+
+//   res.status(401).json({
+//     ok: false,
+//     message: "Usuario o contraseña incorrectos"
+//   });
+// };

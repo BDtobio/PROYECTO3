@@ -1,28 +1,45 @@
+/* RESET GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-body {
-   margin: 0;
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Poppins', sans-serif;
-  }
-  .main-content {
-    margin-top: 20px;
-    padding: 20px;
-  }
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden; /* evita scroll horizontal */
+}
 
-  .navbar {
-    background-color: #008000; 
-    padding: 10px;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .navbar a:hover {
-    color: red;
-  }
-  
+/* NAVBAR FIJA */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px; /* altura de la navbar */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #008000;
+  z-index: 1000;
+}
+
+/* LINKS */
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.navbar a:hover {
+  color: red;
+}
+
+/* CONTENIDO PRINCIPAL DEBAJO DE NAVBAR */
+.main-content {
+  padding-top: 70px; /* mismo valor que la altura de la navbar */
+  padding-left: 20px;
+  padding-right: 20px;
+}

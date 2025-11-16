@@ -1,10 +1,6 @@
-/* eslint-disable no-unused-vars */
-
-
 
 
 import { useContext, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginUserForm.module.css";
 import { UsersContext } from "../../context/UserContext";
@@ -26,66 +22,75 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.username.trim() === '' || formData.password.trim() === '') {
-      setMessage('Por favor, completa todos los campos.');
-      return;
+  e.preventDefault();
+  setLoading(true);
+  setMessage("");
+
+  try {
+    const res = await loginUser(formData);  // SOLO UNA VEZ
+    console.log("RESPUESTA LOGIN:", res.data);
+
+    if (res.data.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
     }
 
-   
-    setLoading(true);
-    try {
-      await loginUser(formData); 
-      alert('Inicio de sesión exitoso. ¡Bienvenido!');
-      navigate('/'); 
-    } catch (error) {
-      alert('Ocurrió un error al iniciar sesión. Verifica tus datos.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (error) {
+    console.log("ERROR EN HANDLE SUBMIT:", error);
+    setMessage("Error al iniciar sesión. Verifica los datos.");
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   return (
-   <div className={styles.body}>
-    <div className={styles.container}>
-      <div className={styles.formcontainer}>
-        <h2>Iniciar sesión</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Nombre de Usuario:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Contraseña:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Cargando...' : 'Iniciar sesión'}
-          </button>
-        </form>
-        {message && <p className={message.includes('error') ? styles.error : styles.success}>{message}</p>}
+    <div className={styles.body}>
+      <div className={styles.container}>
+        <div className={styles.formcontainer}>
+          <h2>Iniciar sesión</h2>
+
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="username">Nombre de Usuario:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password">Contraseña:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Cargando..." : "Iniciar sesión"}
+            </button>
+          </form>
+
+          {message && (
+            <p className={message.includes("error") ? styles.error : styles.success}>
+              {message}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
 
 export default Login;
-
