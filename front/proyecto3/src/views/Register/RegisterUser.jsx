@@ -77,18 +77,40 @@ const Register = () => {
           navigate("/login"); 
         }, 1000); 
       }
-      // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      setMessage(
-        "Ocurrió un error al registrar el usuario. Intenta nuevamente."
-      );
-    } finally {
-      setLoading(false);
+  if (error.response && error.response.data) {
+    const backendMessage = error.response.data.message;
+
+    // Usuario duplicado
+    if (
+      backendMessage.includes("usuario") ||
+      backendMessage.includes("Usuario") ||
+      backendMessage.includes("username")
+    ) {
+      setMessage("El nombre de usuario ya está en uso.");
     }
+    // Email duplicado (si tu DB lo valida)
+    else if (
+      backendMessage.includes("email") ||
+      backendMessage.includes("Email")
+    ) {
+      setMessage("El email ya está registrado.");
+    }
+    // Otros errores devueltos por tu backend
+    else {
+      setMessage(backendMessage);
+    }
+  } else {
+    // Error sin respuesta del backend (servidor caído, conexión fallida, etc.)
+    setMessage("Error al conectar con el servidor");
+  }
+}
+
   };
 
   return (
   <>
+  <div className={styles.maincontent}>
     <div className={styles.container}>
       <h2>Registro</h2>
       <form onSubmit={handleSubmit}>
@@ -187,6 +209,7 @@ const Register = () => {
           {message}
         </p>
       )}
+    </div>
     </div>
     </>
   );

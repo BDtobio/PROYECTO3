@@ -1,82 +1,134 @@
-
-
 .navbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #333; 
+  padding: 10px 0px;
+  background-color: #333;
   width: 100%;
+  position: fixed;
+  height: 70px; /* antes estaba 10vh, lo cambiamos a px */
+  z-index: 1000;
 }
+
 
 .logo {
   display: flex;
-  align-items: center; 
-  margin-right: 0px;
+  align-items: center;
 }
 
 .logoImage {
-  width: 100px; 
-  height: 100px;
-  margin-right: auto; 
-  display: flex;
+  width: 80px;
+  height: 80px;
 }
 
 .logo h1 {
-  margin: 0;
+  margin: 0 0 0 10px;
   color: #fff;
-  font-size: 30px;
-  margin-left: 27px; 
+  font-size: 26px;
 }
 
 .links {
+  margin-top: 17px;
   display: flex;
-  justify-content: space-around; 
-  text-align: center;
-  gap: 40px; 
-  margin-right: 100px;
+  gap: 30px;
+  align-items: center;
+  transition: all 0.3s ease;
 }
 
 .link {
   color: #fff;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .link:hover {
   color: #f0f0f0;
 }
 
-
 .registerLoginButton {
-  background-color: #28a745; 
+  background-color: #28a745;
   color: white;
-  margin-left: 140px;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
 .registerLoginButton:hover {
-  background-color: #218838; 
-
+  background-color: #218838;
 }
 
-
 .logoutButton {
-  background-color: #dc3545; 
+  background-color: #dc3545;
   color: #fff;
-  padding: 5px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
 .logoutButton:hover {
-  background-color: #c82333; 
+  background-color: #c82333;
+}
+
+/* HAMBURGUESA */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* ---------------------- RESPONSIVE ---------------------- */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+.registerLoginButton {
+  width: 8rem;
+  display: flex;            
+  justify-content: center; 
+  align-items: center;    
+  margin: 0;               
+  padding: 0.5rem 1rem;    
+}
+
+  .links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    flex-direction: column;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .links.active {
+    max-height: 500px; /* ajustable según cantidad de links */
+    padding: 10px 0;
+  }
+
+  .link {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+
+  .registerLoginButton,
+  .logoutButton {
+    margin: 5px 0;
+  }
 }

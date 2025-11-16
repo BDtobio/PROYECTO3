@@ -1,99 +1,170 @@
-/* =====================================================
-   📱 RESPONSIVE PARA TABLET Y MÓVIL (≤ 768px)
-   ===================================================== */
-@media (max-width: 768px) {
+/* CONTENEDOR GENERAL */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
 
-  /* Ajustes generales */
-  .container {
-    padding: 0 10px;
-  }
+/* HERO ajustada para no ocupar toda la pantalla */
+.hero {
+  position: relative;
+  height: 100vh; /* antes era 100vh */
+ 
+  width: 100%;
+  overflow: hidden;
+  margin-top: 70px; /* si la navbar es fija de 70px */
+}
 
-  /* HERO */
-  .hero {
-    height: 60vh; /* Más pequeño en móvil */
-  }
+/* VIDEO */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  .full-screen-video {
-    height: 60vh;
-    object-fit: cover;
-  }
+.full-screen-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+
+.heroText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+}
+
+.heroText h1 {
+  font-size: 9rem;
+  margin-bottom: 1rem;
+  color: rgb(5, 95, 5);
+}
+
+.heroText p {
+  font-size: 1.3rem;
+}
+
+/* SECCIÓN PLATOS */
+.platosFamosos {
+  padding: 4rem 2rem;
+  background-color: #f8f8f8;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  color: #b22222;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* LAYOUT de cada plato (desktop) */
+.plato {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+.plato.reverse {
+  flex-direction: row-reverse;
+}
+
+.textContainer {
+  flex: 1;
+  max-width: 600px;
+}
+
+.textContainer h3 {
+  font-size: 1.8rem;
+  color: #b22222;
+  margin-bottom: 1rem;
+}
+
+.textContainer p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.image {
+  flex: 1;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+/* ----------------------------------------------------- */
+/*  RESPONSIVE DESDE AQUÍ: aseguramos TEXTO arriba y FOTO abajo */
+/* ----------------------------------------------------- */
+
+/* TABLET */
+@media (max-width: 1024px) {
   .heroText h1 {
-    font-size: 2.8rem; /* Reducido desde 5.5rem */
+    font-size: 5.2rem;
   }
 
   .heroText p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
-  /* Sección Platos */
-  .platosFamosos {
-    padding: 2rem 1rem;
-  }
-
-  .sectionTitle {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  /* Cada plato se apila en móvil */
-  .plato {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-
-  /* Incluso los reverse deben apilarse */
-  .plato.reverse {
-    flex-direction: column;
-  }
-
-  /* Texto */
-  .textContainer {
-    max-width: 100%;
-    padding: 0 10px;
-  }
-
-  .textContainer h3 {
-    font-size: 1.6rem;
-  }
-
-  .textContainer p {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
-  /* Imágenes */
   .image {
-    max-width: 100%;
-    width: 100%;
-    border-radius: 8px;
+    max-width: 300px;
   }
 }
 
-/* =====================================================
-   📱 EXTRA SMALL (CELULARES MUY CHICOS ≤ 480px)
-   ===================================================== */
-@media (max-width: 480px) {
+/* CELULAR: fuerza el orden TEXT -> IMAGE para todas las tarjetas */
+@media (max-width: 768px) {
 
-  .hero {
-    height: 50vh;
-  }
-
-  .full-screen-video {
-    height: 50vh;
-  }
-
+  /* Hero */
   .heroText h1 {
-    font-size: 2.2rem;
+    font-size: 3.7rem;
   }
 
   .heroText p {
     font-size: 1rem;
   }
 
-  .sectionTitle {
-    font-size: 1.8rem;
+  /* Cada plato pasa a columna */
+  .plato {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+    padding: 1rem 0;
+  }
+
+  /* Forzar que .reverse también sea vertical */
+  .plato.reverse {
+    flex-direction: column !important;
+  }
+
+  /* Texto siempre primero */
+  .plato .textContainer,
+  .plato.reverse .textContainer {
+    order: 0 !important;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  /* Imagen siempre abajo */
+  .plato .image,
+  .plato.reverse .image {
+    order: 1 !important;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 0.5rem;
   }
 
   .textContainer h3 {
@@ -101,6 +172,10 @@
   }
 
   .textContainer p {
-    font-size: 0.95rem;
+    font-size: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
   }
 }

@@ -1,66 +1,75 @@
-
-
+/* Contenedor general que envuelve la página */
+.maincontent {
+  padding-top: 10rem; /* un poquito más que la altura de la navbar */
+}
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 70px;
   border-radius: 8px;
   background-color: #ff4f4f;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 500px;
-  margin: 100px auto;
-}
-.container form{
-  width: 100%;
+  margin: auto;
 
 }
-.container label{
-  color: #ffffff;
-}
-h2 {
+
+
+
+.container h2 {
   font-family: 'Georgia', serif;
   color: #ffffff;
   margin-bottom: 20px;
   font-size: 24px;
+  text-align: center;
 }
 
+.container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-label {
+/* LABELS */
+.container label {
   font-family: 'Arial', sans-serif;
   font-size: 14px;
-  color: #555;
+  color: #ffffff; /* labels en blanco */
   margin-bottom: 5px;
+  display: block;
 }
 
-
+/* INPUTS */
 input {
   color: #555;
   padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
   font-size: 16px;
   transition: border-color 0.3s ease;
+  box-sizing: border-box;
 }
-
 
 input:focus {
   border-color: #8b0000;
   outline: none;
 }
 
-
+/* BOTÓN */
 button {
   background-color: #8b0000;
   color: white;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 button:hover {
@@ -72,30 +81,59 @@ button:disabled {
   cursor: not-allowed;
 }
 
-
+/* MENSAJES */
 .success {
-  color: green;
+  color: #27ae60;
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .error {
-  color: red;
+  color: #ffdddd;
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: 10px;
+  text-align: center;
 }
 
+/* ------------------- RESPONSIVE ------------------- */
 
+/* Tablets */
+@media (max-width: 768px) {
+  .container {
+    max-width: 400px;
+    padding: 20px;
+    margin: 50px auto;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  input, button {
+    font-size: 15px;
+    padding: 8px;
+  }
+}
+
+/* Móviles */
 @media (max-width: 480px) {
   .container {
-    width: 80%;
+    max-width: 90%;
+    padding: 15px;
+    margin: 30px auto;
   }
 
   h2 {
     font-size: 20px;
   }
 
-  button {
-    width: 100%;
+  input, button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .success, .error {
+    font-size: 14px;
   }
 }

@@ -7,36 +7,47 @@ import AcercaDe from './views/AcercaDe/AcercaDe';
 import Reservaciones from "./views/Reservaciones/Reservacion";
 import {Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import NavBar from "./components/navbar/NavBar";
-import { useContext, useEffect } from "react";
-import { UsersContext } from "./context/UserContext";
+import { useEffect } from "react";
+// import { UsersContext } from "./context/UserContext";
 import NotFound from "./views/notFound/notFound";
 import Home from "./views/Home/Home";
+import AdminPanel from "./views/Admin/AdminPanel";
 
 
 
 function App() {
-  const { user } = useContext(UsersContext);
+
 
   const location = useLocation();
   const navigate = useNavigate();
+useEffect(() => {
+  const role = localStorage.getItem("role");
+  const isLogged = !!role;
 
-  useEffect(() => {
-    const existingPaths = ['/', '/register', '/login', '/acerca-de',"/mis-turnos",'/reservaciones'];
-    if (!user && location.pathname !== "/login" && location.pathname !== "/register") {
+  // SI NO ESTÁ LOGUEADO → al login
+  if (!isLogged && location.pathname !== "/login" && location.pathname !== "/register") {
+    navigate("/login");
+    return;
+  }
 
-      navigate("/login");
-    } else if (user && location.pathname === "/login") {
+  // SI ES ADMIN Y entra a /admin → OK
+  if (role === "admin" && location.pathname.startsWith("/admin")) {
+    return;
+  }
 
-      navigate("/");
-    } else if (user && (location.pathname === "/register" || location.pathname === "/login")) {
+  // SI ES ADMIN y entra a otras rutas → mandarlo al panel admin
+  if (role === "admin" && !location.pathname.startsWith("/admin")) {
+    navigate("/admin");
+    return;
+  }
 
-      navigate("/");
-    } else if (user && location.pathname) {
-      navigate(location.pathname);
-    } else if (!existingPaths.includes(location.pathname)) {
-      navigate("/notfound"); 
-    }
-  }, [user, location.pathname, navigate]);
+  // SI ES USER e intenta entrar a /admin → sacarlo
+  if (role === "user" && location.pathname.startsWith("/admin")) {
+    navigate("/");
+  }
+
+}, [location.pathname, navigate]);
+
   return (
     <>
     <NavBar/>
@@ -51,6 +62,8 @@ function App() {
        
       <Route path="/login" element ={<LoginUserForm/>}/>
       <Route path="*" element={<NotFound />} />
+      <Route path="/admin" element={<AdminPanel />} />
+
     </Routes>
     </>
   );
