@@ -28,12 +28,13 @@
 }
 
 .links {
-  margin-top: 17px;
+  margin-top: 0;  /* <- el problema */
   display: flex;
-  gap: 30px;
+  gap: 50px;
   align-items: center;
   transition: all 0.3s ease;
 }
+
 
 .link {
   color: #fff;

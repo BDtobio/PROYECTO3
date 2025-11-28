@@ -34,16 +34,12 @@ const NavBar = () => {
 
       <div className={`${styles.links} ${menuOpen ? styles.active : ''}`}>
         <Link to="/" className={styles.link}>Home</Link>
-
-        {/* Solo usuarios normales */}
-        {role === "user" && (
-          <>
+         <Link to="/acerca-de" className={styles.link}>Nosotros</Link>
             <Link to="/reservaciones" className={styles.link}>Reservaciones</Link>
             <Link to="/mis-turnos" className={styles.link}>Mis Turnos</Link>
-          </>
-        )}
+          
 
-        <Link to="/acerca-de" className={styles.link}>Acerca de</Link>
+       
 
         {/* Zona Admin */}
         {role === "admin" && (

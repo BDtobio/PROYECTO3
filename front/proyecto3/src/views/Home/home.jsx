@@ -15,7 +15,7 @@ const Home= () =>{
 
     return (   
       <div>   
-   
+   <div className="page">
       
         
     <div className={styles.container}>
@@ -31,6 +31,12 @@ const Home= () =>{
     </div>
         <div className={styles.heroText}>
           <h1>ITALY TASTY</h1>
+          <div className={styles.btnContainer}>
+  <a href="/reservaciones" className={styles.reservaBtn}>
+    RESERVA YA
+  </a>
+</div>
+
           <p>Donde la tradición italiana cobra vida en cada plato</p>
         </div>
       </section>
@@ -94,6 +100,7 @@ const Home= () =>{
         </div>
       </div>
     </section>
+    </div>
     </div>
     </div>
     );

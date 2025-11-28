@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import NotFound from "./views/notFound/notFound";
 import Home from "./views/Home/Home";
 import AdminPanel from "./views/Admin/AdminPanel";
+import Footer from "./components/Footer/Footer";
 
 
 
@@ -24,29 +25,31 @@ useEffect(() => {
   const role = localStorage.getItem("role");
   const isLogged = !!role;
 
-  // SI NO ESTÁ LOGUEADO → al login
-  if (!isLogged && location.pathname !== "/login" && location.pathname !== "/register") {
-    navigate("/login");
-    return;
+  // Rutas públicas
+  const publicRoutes = ["/", "/acerca-de", "/login", "/register"];
+  const isPublic = publicRoutes.includes(location.pathname);
+
+  // 👉 Permitir pasar siempre a rutas públicas
+  if (isPublic) return;
+
+  // 🔒 /mis-turnos requiere login
+  if (location.pathname === "/mis-turnos" && !isLogged) {
+    return navigate("/login");
   }
 
-  // SI ES ADMIN Y entra a /admin → OK
-  if (role === "admin" && location.pathname.startsWith("/admin")) {
-    return;
+  // 🔒 /reservaciones requiere login
+  if (location.pathname === "/reservaciones" && !isLogged) {
+    return navigate("/login");
   }
 
-  // SI ES ADMIN y entra a otras rutas → mandarlo al panel admin
-  if (role === "admin" && !location.pathname.startsWith("/admin")) {
-    navigate("/admin");
-    return;
-  }
-
-  // SI ES USER e intenta entrar a /admin → sacarlo
-  if (role === "user" && location.pathname.startsWith("/admin")) {
-    navigate("/");
+  // 🔒 Rutas privadas del admin
+  if (location.pathname.startsWith("/admin")) {
+    if (role === "admin") return;
+    return navigate("/login");
   }
 
 }, [location.pathname, navigate]);
+
 
   return (
     <>
@@ -54,9 +57,10 @@ useEffect(() => {
     
     <Routes>
     <Route path="/notfound" element={<NotFound />} />  
-      <Route path="/" element={<Home />} />  
+      <Route path="/" element={<Home />} /> 
+      <Route path="/acerca-de" element={<AcercaDe />} />  
       <Route path="/mis-turnos" element={<MisTurnos />} /> 
-      <Route path="/acerca-de" element={<AcercaDe />} /> 
+  
       <Route path="/reservaciones" element={<Reservaciones/>} />  
        <Route path="/register" element={<Register/>}/>
        
@@ -65,6 +69,7 @@ useEffect(() => {
       <Route path="/admin" element={<AdminPanel />} />
 
     </Routes>
+    <Footer/>
     </>
   );
 }

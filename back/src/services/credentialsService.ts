@@ -1,52 +1,32 @@
-import { ICredential } from "../interfaces/ICredential";
 import { Credential } from "../entities/Credential";
-import { CredentialDto } from "../dtos/credentialDto";
-import UserRepository from "../repositories/userRepository";
 import CredentialRepository from "../repositories/credentialRepository";
+import bcrypt from "bcrypt";
 
-import bcrypt from "bcrypt"
-let credentialsList: ICredential[] = [];
-let id:number=1
+// SOLO encripta y crea el objeto, NO lo guarda todavía
+export const createCredentials = async (username: string, password: string): Promise<Credential> => {
+  const encryptedPassword = await bcrypt.hash(password, 10);
 
-
-
-export const createCredentials: (username: string, password: string) => Promise<Credential> = 
-async (username: string, password: string): Promise<Credential> => {
-  const encryptedPassword: string = await passwordEncryption(password);
-
-  const newCredentials = {
+  const newCredentials = CredentialRepository.create({
     username,
     password: encryptedPassword,
-  };
+  });
 
-  const credentialsSaved: Credential = CredentialRepository.create(newCredentials)
-
-  return await CredentialRepository.save(credentialsSaved) 
+  return newCredentials; // NO guardamos acá
 };
 
+// VALIDACIÓN LOGIN
+export const validateCredentialService = async (username: string, password: string): Promise<number> => {
+  const credential = await CredentialRepository.findOneBy({ username });
 
-
-const passwordEncryption: (password: string) => Promise<string> = 
-async (password: string): Promise<string> => {
-  const passwordEncrypted: string = await bcrypt.hash(password, 10);
-  return passwordEncrypted;
-};
-
-
-export const validateCredentialService = async (username: string, password: string): Promise<number | undefined> => {
-  const usernameFound: Credential | null = await CredentialRepository.findOneBy({ username });
-
-  if (!usernameFound) {
-      throw new Error(`El usuario ${username} no fue encontrado`);
+  if (!credential) {
+    throw new Error(`El usuario ${username} no fue encontrado`);
   }
 
-  const isPasswordValid = await bcrypt.compare(password, usernameFound.password);
+  const isValid = await bcrypt.compare(password, credential.password);
 
-  if (!isPasswordValid) {
-      throw new Error("Usuario o contraseña incorrectos");
+  if (!isValid) {
+    throw new Error("Usuario o contraseña incorrectos");
   }
 
-  return usernameFound.id;
+  return credential.id;
 };
-
-
