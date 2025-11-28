@@ -33,7 +33,7 @@ const Home= () =>{
           <h1>ITALY TASTY</h1>
           <div className={styles.btnContainer}>
   <a href="/reservaciones" className={styles.reservaBtn}>
-    RESERVA YA
+    RESERVA YAa
   </a>
 </div>
 
