@@ -22,7 +22,11 @@ const Home = () => {
 
           <div className={styles.heroText}>
             <h1>ITALY TASTY</h1>
+            
             <p>Donde la tradición italiana cobra vida en cada plato</p>
+            <a href="/reservaciones" className={styles.reservaBtn}>
+    RESERVA YA
+  </a>
           </div>
         </section>
 
