@@ -16,17 +16,22 @@ export const createCredentials = async (username: string, password: string): Pro
 
 // VALIDACIÓN LOGIN
 export const validateCredentialService = async (username: string, password: string): Promise<number> => {
-  const credential = await CredentialRepository.findOneBy({ username });
+  console.log("🔍 VALIDANDO LOGIN PARA USERNAME:", username);
 
-  if (!credential) {
-    throw new Error(`El usuario ${username} no fue encontrado`);
-  }
+  const credential = await CredentialRepository.findOne({
+    where: { username },
+    relations: ["user"],
+  });
+
+  console.log("📌 CREDENCIAL ENCONTRADA?", credential);
+
+  if (!credential) throw new Error("Usuario no encontrado");
 
   const isValid = await bcrypt.compare(password, credential.password);
 
-  if (!isValid) {
-    throw new Error("Usuario o contraseña incorrectos");
-  }
+  console.log("🔑 PASSWORD CORRECTA?", isValid);
+
+  if (!isValid) throw new Error("Usuario o contraseña incorrectos");
 
   return credential.id;
 };

@@ -45,26 +45,36 @@ export const registerUser = async (userData: registerUserDto): Promise<userDto> 
     nDni: savedUser.nDni,
   };
 };
-
 export const loginUser = async (data: loginUserDto): Promise<loginUserSucessDto> => {
   const { username, password } = data;
+
+  console.log("🔍 LOGIN RECIBIDO:");
+  console.log("username:", username);
+  console.log("password:", password);
 
   const credential = await CredentialRepository.findOne({
     where: { username },
     relations: ["user"],
   });
 
+  console.log("📌 CREDENCIAL ENCONTRADA:", credential);
+
   if (!credential) {
+    console.log("❌ ERROR: usuario no existe");
     throw new Error("Usuario no encontrado");
   }
 
   const isValid = await bcrypt.compare(password, credential.password);
+  console.log("🔑 PASSWORD MATCH:", isValid);
 
   if (!isValid) {
+    console.log("❌ ERROR: contraseña incorrecta");
     throw new Error("Usuario o contraseña incorrectos");
   }
 
   const user = credential.user;
+
+  console.log("✅ LOGIN EXITOSO PARA USER:", user.id);
 
   return {
     login: true,
