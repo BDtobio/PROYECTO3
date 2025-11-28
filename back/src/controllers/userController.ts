@@ -23,17 +23,20 @@ export const getUserByIdController = async (req: Request, res: Response): Promis
         id: user.id,
         name: user.name,
         email: user.email,
-        birthdate: user.birthdate.toISOString().split("T")[0],
+        birthdate: new Date(user.birthdate), // ← OBJETO DATE
         nDni: user.nDni,
+
         appointments: user.appointments.map(a => ({
           id: a.id,
-          date: a.date,
+          date: new Date(a.date), // ← OBJETO DATE
           time: a.time,
           status: a.status,
-          userName: user.name,
+          userId: user.id,
+          userName: user.name
         }))
       }
     });
+
   } catch (error) {
     res.status(400).json({
       message: error instanceof Error ? error.message : "Error desconocido",
@@ -61,7 +64,6 @@ export const registerUserController = async (
     });
   }
 };
-
 export const loginUserController = async (req: Request, res: Response): Promise<void> => {
   const { username, password } = req.body;
 
@@ -79,7 +81,7 @@ export const loginUserController = async (req: Request, res: Response): Promise<
         email: "admin@system.com"
       }
     });
-    return;
+    return; // ← OBLIGATORIO
   }
 
   // USER LOGIN NORMAL
@@ -90,7 +92,11 @@ export const loginUserController = async (req: Request, res: Response): Promise<
       ...response,
       role: "user",
     });
+    return; // ← OBLIGATORIO
   } catch (error) {
+
+    console.log("💥 ERROR EN LOGIN CONTROLLER:", error);
+
     res.status(400).json({
       message: "Usuario o contraseña incorrectos",
     });

@@ -1,5 +1,5 @@
 
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 
 
@@ -19,7 +19,8 @@ export class Appointment {
     @Column()
     status: string;
 
-    @ManyToOne(() => User, user => user.appointments)
+   @ManyToOne(() => User, user => user.appointments, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "userId" })  // 👈 NECESARIO
     user: User;
 }
 // export const AppointmentModel = AppDataSource.getRepository(Appointment);
