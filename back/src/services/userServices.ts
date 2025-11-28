@@ -82,7 +82,10 @@ export const loginUser = async (data: loginUserDto): Promise<loginUserSucessDto>
       id: user.id,
       name: user.name,
       email: user.email,
-      birthdate: user.birthdate.toISOString().split("T")[0],
+       birthdate:
+        user.birthdate instanceof Date
+          ? user.birthdate.toISOString().split("T")[0]
+          : user.birthdate, 
       nDni: user.nDni,
     },
   };
