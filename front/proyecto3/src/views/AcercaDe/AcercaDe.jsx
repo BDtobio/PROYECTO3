@@ -37,29 +37,6 @@ const AcercaDe = () => {
       </section>
 
     
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p>Ubicación: Av. Corrientes 1234, Buenos Aires, Argentina</p>
-          <div className={styles.socialLinks}>
-            <a
-              href="https://www.instagram.com/tasteofitalypizzeria/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
-              Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/tasteofitalypizzeria/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
-              Instagram
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
     </div>
   );

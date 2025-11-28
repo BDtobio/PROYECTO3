@@ -4,7 +4,6 @@
 import { createContext, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 
-// CONTEXTO
 export const UsersContext = createContext({
   role: null,
   user: null,
@@ -18,40 +17,33 @@ export const UsersContext = createContext({
   cancelAppointment: async () => {},
 });
 
-// PROVIDER
 export const UsersProvider = ({ children }) => {
-  
-  // 🔥 Guardamos ROLE como principal
+
   const storedRole = localStorage.getItem("role");
   const storedUser = localStorage.getItem("user");
 
   const [role, setRole] = useState(storedRole ?? null);
   const [user, setUser] = useState(
-    storedUser && !isNaN(Number(storedUser)) ? Number(storedUser) : null
+    storedUser ? JSON.parse(storedUser) : null
   );
 
   const [userAppointments, setUserAppointments] = useState([]);
 
-  // REGISTER
   const registerUser = async (userData) => {
     return await axiosInstance.post("/users/register", userData);
   };
 
-  // LOGIN (UNIFICADO)
   const loginUser = async (loginData) => {
     try {
       const res = await axiosInstance.post("/users/login", loginData);
 
-      // Guardamos role SIEMPRE
       localStorage.setItem("role", res.data.role);
       setRole(res.data.role);
 
-      // Usuario normal → guardamos ID
       if (res.data.role === "user") {
-        localStorage.setItem("user", res.data.user.id);
-        setUser(res.data.user.id);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        setUser(res.data.user);
       } else {
-        // Admin → NO usa userId
         localStorage.removeItem("user");
         setUser(null);
       }
@@ -63,7 +55,6 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  // LOGOUT unificado
   const logout = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("user");
@@ -71,12 +62,11 @@ export const UsersProvider = ({ children }) => {
     setUser(null);
   };
 
-  // Cargar turnos (solo user real)
   const renderAppointments = async (userId) => {
-    if (!userId || isNaN(Number(userId))) return;
+    if (!userId) return;
 
     try {
-      const { data } = await axiosInstance.get(`/users/id/${userId}`);
+      const { data } = await axiosInstance.get(`/users/${userId}`);
       setUserAppointments(data.user.appointments || []);
     } catch (error) {
       console.error("Error al obtener las citas:", error);

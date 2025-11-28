@@ -44,22 +44,26 @@ export default function AdminPanel() {
               <th>Acciones</th>
             </tr>
           </thead>
+<tbody>
+  {appointments.map((turno) => (
+    <tr key={turno.id}>
+      <td>{turno.id}</td>
 
-          <tbody>
-            {appointments.map((turno) => (
-              <tr key={turno.id}>
-                <td>{turno.id}</td>
-                <td>{turno.user?.name || "Sin usuario"}</td>
-                <td>{turno.date}</td>
-                <td>{turno.time}</td>
-                <td>{turno.status}</td>
-                <td>
-                  <button className={styles.btnEdit}>Editar</button>
-                  <button className={styles.btnDelete}>Eliminar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+      {/* 👇 AHORA FUNCIONA */}
+      <td>{turno.userName}</td>
+
+      <td>{turno.date}</td>
+      <td>{turno.time}</td>
+      <td>{turno.status}</td>
+
+      <td>
+        <button className={styles.btnEdit}>Editar</button>
+        <button className={styles.btnDelete}>Eliminar</button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
         </table>
       )}
     </div>

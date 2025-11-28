@@ -1,99 +1,94 @@
-
-.appointment {
-  background-color: #f5f5f5;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid #388e3c;
+.appointmentCard {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 18px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width:90%;
-  
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.06);
+  border-left: 6px solid #a33f10;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.appointment h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #388e3c;
+.appointmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 22px rgba(0, 0, 0, 0.12);
 }
-
-.appointment p {
-  margin: 5px 0;
+.userName {
   font-size: 1rem;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.date {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #a33f10;
+}
+
+.time {
+  font-size: 1.1rem;
   color: #333;
 }
 
-.appointment .status {
-  padding: 5px 10px;
-  border-radius: 20px;
-  color: white;
-}
-
-.appointment .status.active {
-  background-color: #388e3c;
-}
-
-.appointment .status.cancelled {
-  background-color: #d32f2f;
-}
-
-.appointment .time {
-  font-weight: bold;
-  color: #d32f2f;
-}
-
-.appointment .date {
-  font-style: italic;
-  color: #388e3c;
-}
-
-.appointment button {
-  background-color: #d32f2f;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.appointment button:hover {
-  background-color: #c2185b;
-}
-
-
-.appointment {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-}
-
 .status {
-  font-weight: bold;
-  padding: 5px;
-  margin-top: 10px;
+  margin-top: 5px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  width: fit-content;
 }
 
 .active {
-  color: green;
+  background: #eaf7ea;
+  color: #2e7d32;
 }
 
 .cancelled {
-  color: red;
+  background: #fdecea;
+  color: #c62828;
 }
 
-.cancelButton {
-  background-color: red;
-  color: white;
-  padding: 5px 10px;
-  border: none;
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.viewBtn {
+  background: #fff;
+  border: 1px solid #a33f10;
+  padding: 6px 14px;
+  border-radius: 8px;
+  color: #a33f10;
   cursor: pointer;
-  margin-top: 10px;
+  transition: all 0.2s ease;
 }
 
-.cancelButton:hover {
-  background-color: darkred;
+.viewBtn:hover {
+  background: #a33f10;
+  color: white;
+}
+
+.cancelBtn {
+  background: #c62828;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background: #b71c1c;
 }

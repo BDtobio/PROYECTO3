@@ -1,4 +1,12 @@
 /* CONTENEDOR GENERAL */
+.page {
+  padding-top: 100px; /* altura navbar */
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -102,6 +110,35 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   object-fit: cover;
 }
+
+.btnContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.reservaBtn {
+  padding: 15px 40px;
+  background: #e50914; /* rojo italiano elegante estilo Netflix */
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.reservaBtn:hover {
+  background: white;
+  color: #e50914;
+  border-color: #e50914;
+  transform: scale(1.08);
+  box-shadow: 0px 6px 20px rgba(229, 9, 20, 0.5);
+}
+
 
 /* ----------------------------------------------------- */
 /*  RESPONSIVE DESDE AQUÍ: aseguramos TEXTO arriba y FOTO abajo */

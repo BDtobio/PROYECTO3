@@ -6,7 +6,7 @@ import styles from "./AdminLogin.module.css";
 
 export default function AdminLogin() {
   const [form, setForm] = useState({
-    username: "",
+    name: "",
     password: "",
   });
 
@@ -55,8 +55,8 @@ export default function AdminLogin() {
           Usuario
           <input
             type="text"
-            name="username"
-            value={form.username}
+            name="name"
+            value={form.name}
             onChange={handleChange}
             className={styles.input}
             placeholder="Usuario"
