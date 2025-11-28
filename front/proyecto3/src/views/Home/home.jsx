@@ -95,7 +95,7 @@ const Home= () =>{
           <p>
             Este postre icónico combina capas de bizcochos empapados en café,
             queso mascarpone y cacao en polvo. Originado en el Véneto, es una
-            dulce celebración del arte de vivir a la italiana.
+            dulce celebración del arte de vivir a la italiana
           </p>
         </div>
       </div>
