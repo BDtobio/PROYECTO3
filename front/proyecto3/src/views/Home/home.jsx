@@ -1,91 +1,120 @@
-import styles from "./Home.module.css";
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 
-import plato1 from "../../images/plato1.png";
-import plato2 from "../../images/plato2.png";
-import plato3 from "../../images/plato3.png";
-import plato4 from "../../images/plato4.png";
-import video1 from "../../videos/video1.mp4";
+import { createContext, useState, useEffect } from "react";
+import axiosInstance from "../api/axiosInstance";
 
-const Home = () => {
+export const UsersContext = createContext({
+  role: null,
+  user: null,
+  userAppointments: [],
+  registerUser: async () => {},
+  loginUser: async () => {},
+  logout: () => {},
+  renderAppointments: async () => {},
+  createAppointment: async () => {},
+  addAppointment: () => {},
+  cancelAppointment: async () => {},
+});
+
+export const UsersProvider = ({ children }) => {
+
+  const [role, setRole] = useState(null);
+  const [user, setUser] = useState(null);
+  const [userAppointments, setUserAppointments] = useState([]);
+
+  // 🔥 FIX PARA PRODUCCIÓN: CARGAR USER AL INICIAR LA APP
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    const storedUser = localStorage.getItem("user");
+
+    if (storedRole) setRole(storedRole);
+    if (storedUser) setUser(JSON.parse(storedUser));
+  }, []);
+
+  const registerUser = async (userData) => {
+    return await axiosInstance.post("/users/register", userData);
+  };
+
+  const loginUser = async (loginData) => {
+    try {
+      const res = await axiosInstance.post("/users/login", loginData);
+
+      // Guardado INMEDIATO en localStorage → FIX en producción
+      localStorage.setItem("role", res.data.role);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      setRole(res.data.role);
+      setUser(res.data.user);
+
+      return res;
+
+    } catch (error) {
+      console.error("ERROR EN CONTEXT LOGINUSER:", error);
+      throw error;
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
+    setRole(null);
+    setUser(null);
+  };
+
+  const renderAppointments = async (userId) => {
+    if (!userId) return;
+
+    try {
+      const { data } = await axiosInstance.get(`/users/${userId}`);
+      setUserAppointments(data.user.appointments || []);
+    } catch (error) {
+      console.error("Error al obtener las citas:", error);
+    }
+  };
+
+  const createAppointment = async (appointmentData) => {
+    await axiosInstance.post("/appointments/schedule", appointmentData);
+  };
+
+  const addAppointment = (newAppointment) => {
+    setUserAppointments((prev) => [...prev, newAppointment]);
+  };
+
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      await axiosInstance.put(`/appointments/cancel/${appointmentId}`);
+
+      const updated = userAppointments.map((appointment) =>
+        appointment.id === appointmentId
+          ? { ...appointment, status: "cancelled" }
+          : appointment
+      );
+
+      setUserAppointments(updated);
+    } catch (error) {
+      console.error("Error al cancelar la reserva", error);
+    }
+  };
+
+  const value = {
+    role,
+    setRole,
+    user,
+    setUser,
+    userAppointments,
+    registerUser,
+    loginUser,
+    logout,
+    renderAppointments,
+    createAppointment,
+    addAppointment,
+    cancelAppointment,
+  };
+
   return (
-    <div className="page">
-      <div className={styles.container}>
-
-        {/* HERO */}
-        <section className={styles.hero}>
-          <div className="video-container">
-            <video className="full-screen-video" autoPlay loop muted>
-              <source src={video1} type="video/mp4" />
-              Tu navegador no soporta el formato de video.
-            </video>
-          </div>
-
-          <div className={styles.heroText}>
-            <h1>ITALY TASTY</h1>
-            
-            <p>Donde la tradición italiana cobra vida en cada plato</p>
-            <a href="/reservaciones" className={styles.reservaBtn}>
-    RESERVA YA
-  </a>
-          </div>
-        </section>
-
-        {/* PLATOS FAMOSOS */}
-        <section className={styles.platosFamosos}>
-          <h2 className={styles.sectionTitle}>Nuestros Platos Más Famosos</h2>
-
-          {/* Plato 1 */}
-          <div className={`${styles.plato} ${styles.reverse}`}>
-            <div className={styles.textContainer}>
-              <h3>Spaghetti Carbonara</h3>
-              <p>
-                Este plato clásico nació en Roma y combina pasta al dente con
-                una mezcla cremosa de yema de huevo, queso pecorino y panceta.
-              </p>
-            </div>
-            <img src={plato1} alt="Spaghetti Carbonara" className={styles.image} />
-          </div>
-
-          {/* Plato 2 */}
-          <div className={styles.plato}>
-            <img src={plato2} alt="Pizza Margherita" className={styles.image} />
-            <div className={styles.textContainer}>
-              <h3>Pizza Margherita</h3>
-              <p>
-                Creada en honor a la Reina Margherita, representa los colores
-                de la bandera italiana: tomate, mozzarella y albahaca.
-              </p>
-            </div>
-          </div>
-
-          {/* Plato 3 */}
-          <div className={`${styles.plato} ${styles.reverse}`}>
-            <div className={styles.textContainer}>
-              <h3>Risotto alla Milanese</h3>
-              <p>
-                Este plato cremoso originado en Milán utiliza azafrán para su
-                distintivo color dorado.
-              </p>
-            </div>
-            <img src={plato3} alt="Risotto alla Milanese" className={styles.image} />
-          </div>
-
-          {/* Plato 4 */}
-          <div className={styles.plato}>
-            <img src={plato4} alt="Tiramisú" className={styles.image} />
-            <div className={styles.textContainer}>
-              <h3>Tiramisú</h3>
-              <p>
-                Capas de bizcochos en café, mascarpone y cacao. Un clásico
-                dulce del Véneto.
-              </p>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
+    <UsersContext.Provider value={value}>
+      {children}
+    </UsersContext.Provider>
   );
 };
-
-export default Home;
