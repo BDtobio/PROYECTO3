@@ -62,17 +62,16 @@ export const UsersProvider = ({ children }) => {
     setUser(null);
   };
 
- const renderAppointments = async (userId) => {
-  if (!userId) return;
+  const renderAppointments = async (userId) => {
+    if (!userId) return;
 
-  try {
-    const { data } = await axiosInstance.get(`/appointments/user/${userId}`);
-    setUserAppointments(data.appointments || []);
-  } catch (error) {
-    console.error("Error al obtener las citas:", error);
-  }
-};
-
+    try {
+      const { data } = await axiosInstance.get(`/users/${userId}`);
+      setUserAppointments(data.user.appointments || []);
+    } catch (error) {
+      console.error("Error al obtener las citas:", error);
+    }
+  };
 
   const createAppointment = async (appointmentData) => {
     await axiosInstance.post("/appointments/schedule", appointmentData);
