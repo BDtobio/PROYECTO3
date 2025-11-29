@@ -23,7 +23,7 @@ export const UsersProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userAppointments, setUserAppointments] = useState([]);
 
-  // 🔥 Cargar localStorage SOLO en cliente (fix para Vercel)
+  // 🔥 FIX PARA PRODUCCIÓN: CARGAR USER AL INICIAR LA APP
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     const storedUser = localStorage.getItem("user");
@@ -32,57 +32,35 @@ export const UsersProvider = ({ children }) => {
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  // ============================
-  // REGISTER
-  // ============================
-
   const registerUser = async (userData) => {
     return await axiosInstance.post("/users/register", userData);
   };
-
-  // ============================
-  // LOGIN
-  // ============================
 
   const loginUser = async (loginData) => {
     try {
       const res = await axiosInstance.post("/users/login", loginData);
 
-      // Guardar rol
+      // Guardado INMEDIATO en localStorage → FIX en producción
       localStorage.setItem("role", res.data.role);
-      setRole(res.data.role);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // Si es usuario normal → guardamos datos
-      if (res.data.role === "user") {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        setUser(res.data.user);
-      } else {
-        localStorage.removeItem("user");
-        setUser(null);
-      }
+      setRole(res.data.role);
+      setUser(res.data.user);
 
       return res;
+
     } catch (error) {
       console.error("ERROR EN CONTEXT LOGINUSER:", error);
       throw error;
     }
   };
 
-  // ============================
-  // LOGOUT
-  // ============================
-
   const logout = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("user");
     setRole(null);
     setUser(null);
-    setUserAppointments([]);
   };
-
-  // ============================
-  // TURNOS DEL USUARIO
-  // ============================
 
   const renderAppointments = async (userId) => {
     if (!userId) return;
@@ -95,25 +73,13 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  // ============================
-  // CREAR TURNO
-  // ============================
-
   const createAppointment = async (appointmentData) => {
     await axiosInstance.post("/appointments/schedule", appointmentData);
   };
 
-  // ============================
-  // AGREGAR TURNO LOCAL
-  // ============================
-
   const addAppointment = (newAppointment) => {
     setUserAppointments((prev) => [...prev, newAppointment]);
   };
-
-  // ============================
-  // CANCELAR TURNO
-  // ============================
 
   const cancelAppointment = async (appointmentId) => {
     try {
@@ -130,10 +96,6 @@ export const UsersProvider = ({ children }) => {
       console.error("Error al cancelar la reserva", error);
     }
   };
-
-  // ============================
-  // PROVIDER
-  // ============================
 
   const value = {
     role,
