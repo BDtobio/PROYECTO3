@@ -62,16 +62,26 @@ export const UsersProvider = ({ children }) => {
     setUser(null);
   };
 
-  const renderAppointments = async (userId) => {
-    if (!userId) return;
+ const renderAppointments = async (userId) => {
+  if (!userId) return;
 
-    try {
-      const { data } = await axiosInstance.get(`/users/${userId}`);
-      setUserAppointments(data.user.appointments || []);
-    } catch (error) {
-      console.error("Error al obtener las citas:", error);
-    }
-  };
+  try {
+    const { data } = await axiosInstance.get(`/appointments/user/${userId}`);
+
+    const appointments = data.appointments || [];
+
+    // 🔥 Aca forzamos que siempre tengan userName
+    const normalizedAppointments = appointments.map((a) => ({
+      ...a,
+      userName: a.userName ?? user?.name ?? "Usuario",
+    }));
+
+    setUserAppointments(normalizedAppointments);
+  } catch (error) {
+    console.error("Error al obtener las citas:", error);
+  }
+};
+
 
   const createAppointment = async (appointmentData) => {
     await axiosInstance.post("/appointments/schedule", appointmentData);
