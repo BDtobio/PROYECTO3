@@ -10,9 +10,10 @@ import NavBar from "./components/navbar/NavBar";
 import { useEffect } from "react";
 // import { UsersContext } from "./context/UserContext";
 import NotFound from "./views/notFound/notFound";
-import Home from "./views/Home/Home";
+
 import AdminPanel from "./views/Admin/AdminPanel";
 import Footer from "./components/Footer/Footer";
+import Home from "./views/Home/home";
 
 
 
