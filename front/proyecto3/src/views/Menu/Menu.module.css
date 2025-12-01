@@ -1,0 +1,77 @@
+.menuSection {
+  width: 100%;
+  background: #f5f0e8;
+  padding: 4rem 0;
+}
+
+/* HERO */
+.menuHero {
+  width: 90%;
+  height: 80vh;
+
+  /* 🔥 SOLO ESTE margen separa del navbar */
+  margin: 6rem auto 20px;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+.heroText {
+    margin-top: 4rem;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-family: "Cinzel", serif;
+}
+.menuTitle {
+  margin-bottom: 1rem; /* separación sutil */
+}
+
+.brandTitle {
+  margin-top: 0.5rem; /* separación hacia abajo */
+}
+
+.heroText h1,
+.heroText h2 {
+
+  position: relative;
+  display: block; /* 🔥 hace que vayan uno debajo del otro */
+  background: linear-gradient(90deg, #c30000, #ca1d1d, #c28a8a);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 3s infinite linear;
+  text-shadow:
+    0 0 8px rgba(255, 0, 0, 0.7),
+    0 0 15px rgba(255, 0, 0, 0.4),
+    0 0 25px rgba(255, 0, 0, 0.2);
+}
+
+
+
+
+
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+

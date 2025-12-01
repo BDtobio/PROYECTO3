@@ -1,10 +1,10 @@
 import styles from "./Home.module.css";
 
-import plato1 from "../../images/plato1.png";
-import plato2 from "../../images/plato2.png";
-import plato3 from "../../images/plato3.png";
-import plato4 from "../../images/plato4.png";
-import video1 from "../../videos/video1.mp4";
+import plato1 from "/images/plato1.png";
+import plato2 from "/images/plato2.png";
+import plato3 from "/images/plato3.png";
+import plato4 from "/images/plato4.png";
+
 
 const Home = () => {
   return (
@@ -13,12 +13,14 @@ const Home = () => {
 
         {/* HERO */}
         <section className={styles.hero}>
-          <div className="video-container">
-            <video className="full-screen-video" autoPlay loop muted>
-              <source src={video1} type="video/mp4" />
-              Tu navegador no soporta el formato de video.
-            </video>
-          </div>
+       <div className="video-container">
+ <video className="full-screen-video" autoPlay loop muted>
+  <source src="/videos/video1.mp4" type="video/mp4" />
+</video>
+
+</div>
+
+
 
           <div className={styles.heroText}>
             <h1>ITALY TASTY</h1>

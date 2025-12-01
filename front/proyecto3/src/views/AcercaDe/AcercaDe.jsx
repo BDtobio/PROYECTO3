@@ -1,7 +1,7 @@
 
 import styles from "./AcercaDe.module.css"
-import image1 from '../../images/image1.png';
-import image2 from '../../images/image2.png';
+import image1 from '/images/image1.png';
+import image2 from '/images/image2.png';
 const AcercaDe = () => {
     return (
       <div className={styles.allAcercaDe}>

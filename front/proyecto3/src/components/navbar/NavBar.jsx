@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import styles from './NavBar.module.css';
-import logo from '../../images/logo.png';
+import logo from '/images/logo.png';
 import { UsersContext } from '../../context/UserContext';
 
 const NavBar = () => {
@@ -34,6 +34,7 @@ const NavBar = () => {
 
       <div className={`${styles.links} ${menuOpen ? styles.active : ''}`}>
         <Link to="/" className={styles.link}>Home</Link>
+        <Link to="/menu" className={styles.link}>Menu</Link>
          <Link to="/acerca-de" className={styles.link}>Nosotros</Link>
             <Link to="/reservaciones" className={styles.link}>Reservaciones</Link>
             <Link to="/mis-turnos" className={styles.link}>Mis Turnos</Link>

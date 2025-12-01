@@ -14,6 +14,7 @@ import NotFound from "./views/notFound/notFound";
 import AdminPanel from "./views/Admin/AdminPanel";
 import Footer from "./components/Footer/Footer";
 import Home from "./views/Home/home";
+import Menu from "./views/Menu/Menu";
 
 
 
@@ -60,6 +61,7 @@ useEffect(() => {
     <Routes>
     <Route path="/notfound" element={<NotFound />} />  
       <Route path="/" element={<Home />} /> 
+      <Route path="/menu" element={<Menu/>} /> 
       <Route path="/acerca-de" element={<AcercaDe />} />  
       <Route path="/mis-turnos" element={<MisTurnos />} /> 
   
