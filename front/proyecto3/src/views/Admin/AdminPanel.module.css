@@ -71,3 +71,16 @@
   text-align: center;
   color: #ff6b6b;
 }
+.btnCreate {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btnCreate:hover {
+  background-color: #22863a;
+}

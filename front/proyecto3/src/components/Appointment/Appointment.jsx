@@ -56,23 +56,54 @@ const Appointment = ({ id, date, time, status, userName }) => {
   // ❌ CANCELAR TURNO
   // =====================================
   const handleCancel = async () => {
-    if (!canCancel()) {
-      showAlert(
-        "warning",
-        "No se puede cancelar",
-        "Solo se puede cancelar con más de 24 horas de anticipación."
-      );
-      return;
-    }
+  if (!canCancel()) {
+    showAlert(
+      "warning",
+      "No se puede cancelar",
+      "Solo se puede cancelar con más de 24 horas de anticipación."
+    );
+    return;
+  }
 
-    try {
-      await cancelAppointment(id);
-      setCurrentStatus("cancelled");
-      showAlert("success", "Turno cancelado", "Tu turno ha sido cancelado.");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //  SweetAlert2 — Confirmación antes de cancelar
+  const result = await Swal.fire({
+    title: "¿Cancelar turno?",
+    text: "Esta acción no se puede deshacer.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, cancelar",
+    cancelButtonText: "No",
+    reverseButtons: true,
+    background: "#F5F5DC",
+    color: "#2c2c2c",
+    iconColor: "#a33f10",
+    confirmButtonColor: "#a33f10",
+    cancelButtonColor: "#555",
+    width: "400px"
+  });
+
+  if (!result.isConfirmed) return; // ❌ El usuario eligió NO cancelar
+
+  try {
+    await cancelAppointment(id);
+    setCurrentStatus("cancelled");
+
+    Swal.fire({
+      icon: "success",
+      title: "Turno cancelado",
+      text: "Tu turno ha sido cancelado correctamente.",
+      background: "#F5F5DC",
+      color: "#2c2c2c",
+      iconColor: "#a33f10",
+      confirmButtonColor: "#a33f10",
+      width: "400px"
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 
   return (
     <div className={styles.appointmentCard}>

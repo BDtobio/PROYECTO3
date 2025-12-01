@@ -119,6 +119,40 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
+  const adminCreateAppointment = async (appointmentData) => {
+    try {
+      const { data } = await axiosInstance.post("/appointments/admin", appointmentData);
+      return data;
+    } catch (err) {
+      console.error("Error al crear turno admin:", err);
+      throw err;
+    }
+  };
+
+  // ==========================
+  // 🟨 ADMIN: EDITAR TURNO
+  // ==========================
+  const adminUpdateAppointment = async (id, appointmentData) => {
+    try {
+      const { data } = await axiosInstance.put(`/appointments/admin/${id}`, appointmentData);
+      return data;
+    } catch (err) {
+      console.error("Error al editar turno admin:", err);
+      throw err;
+    }
+  };
+
+  // ==========================
+  // 🟥 ADMIN: ELIMINAR TURNO
+  // ==========================
+  const adminDeleteAppointment = async (id) => {
+    try {
+      await axiosInstance.delete(`/appointments/admin/${id}`);
+    } catch (err) {
+      console.error("Error al eliminar turno admin:", err);
+      throw err;
+    }
+  };
   // ==========================
   // PROVIDER
   // ==========================
@@ -135,6 +169,9 @@ export const UsersProvider = ({ children }) => {
     createAppointment,
     addAppointment,
     cancelAppointment,
+    adminCreateAppointment,
+    adminUpdateAppointment,
+    adminDeleteAppointment,
   };
 
   return (
