@@ -30,47 +30,47 @@ export default function AdminPanel() {
   // ===========================
   // 🟩 CREAR TURNO (ADMIN)
   // ===========================
-  const handleCreate = async () => {
-    const { value: form } = await Swal.fire({
-      title: "Crear turno",
-      html: `
-        <label>Usuario (ID):</label>
-        <input id="swal-user" class="swal2-input" placeholder="1" />
+const handleCreate = async () => {
+  const { value: form } = await Swal.fire({
+    title: "Crear turno",
+    html: `
+      <label>Nombre del cliente:</label>
+      <input id="swal-client" class="swal2-input" placeholder="Ej: Juan Pérez" />
 
-        <label>Fecha:</label>
-        <input id="swal-date" type="date" class="swal2-input" />
+      <label>Fecha:</label>
+      <input id="swal-date" type="date" class="swal2-input" />
 
-        <label>Hora:</label>
-        <input id="swal-time" type="time" class="swal2-input" />
-      `,
-      confirmButtonText: "Crear",
-      focusConfirm: false,
-      preConfirm: () => {
-        const userId = document.getElementById("swal-user").value;
-        const date = document.getElementById("swal-date").value;
-        const time = document.getElementById("swal-time").value;
+      <label>Hora:</label>
+      <input id="swal-time" type="time" class="swal2-input" />
+    `,
+    confirmButtonText: "Crear",
+    focusConfirm: false,
+    preConfirm: () => {
+      const clientName = document.getElementById("swal-client").value;
+      const date = document.getElementById("swal-date").value;
+      const time = document.getElementById("swal-time").value;
 
-        if (!userId || !date || !time) {
-          Swal.showValidationMessage("Todos los campos son obligatorios");
-          return null;
-        }
-
-        return { userId, date, time };
+      if (!clientName || !date || !time) {
+        Swal.showValidationMessage("Todos los campos son obligatorios");
+        return null;
       }
-    });
 
-    if (!form) return;
+      return { clientName, date, time };
+    }
+  });
 
-    try {
-      await axiosInstance.post("/appointments/admin", form);
-      Swal.fire("Turno creado", "El turno fue generado con éxito", "success");
-      fetchAppointments();
-    } catch (err) {
-  console.error(err);
-  Swal.fire("Error", "No se pudo crear el turno", "error");
-}
+  if (!form) return;
 
-  };
+  try {
+    await axiosInstance.post("/appointments/admin", form);
+    Swal.fire("Turno creado", "El turno fue generado con éxito", "success");
+    fetchAppointments();
+  } catch (err) {
+    console.error(err);
+    Swal.fire("Error", err.response?.data?.error || "No se pudo crear el turno", "error");
+  }
+};
+
 
   // ===========================
   // 🟨 EDITAR TURNO
@@ -117,11 +117,11 @@ export default function AdminPanel() {
   // ===========================
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
-      title: "¿Eliminar turno?",
+      title: "¿Cancelar turno?",
       text: "Esta acción no se puede deshacer.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Sí, eliminar",
+      confirmButtonText: "Sí, cancelar",
       cancelButtonText: "Cancelar",
     });
 

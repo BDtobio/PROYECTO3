@@ -4,9 +4,10 @@ import { appointmentStatus } from "../interfaces/IAppointment";
 import AppointmentRepository from "../repositories/appointmentRepository";
 import UserRepository from "../repositories/userRepository";
 
-export const getAllAppointments = async (): Promise<AppointmentDTO[]> => {
+export const getAllAppointments = async () => {
   const appointments = await AppointmentRepository.find({
-    relations: { user: true },
+    relations: ["user"], // traer el usuario si existe
+    order: { date: "ASC", time: "ASC" }
   });
 
   return appointments.map(a => ({
@@ -14,8 +15,8 @@ export const getAllAppointments = async (): Promise<AppointmentDTO[]> => {
     date: a.date,
     time: a.time,
     status: a.status,
-    userId: a.user.id,
-    userName: a.user.name,
+    userId: a.userId || null,
+    userName: a.user ? a.user.name : a.clientName || "Turno creado por Admin"
   }));
 };
 

@@ -6,7 +6,11 @@ import appointmentAdminRoutes from "./appointmentsAdminRoutes";
 const indexRouter: Router = Router();
 
 indexRouter.use("/users", userRoutes);
-indexRouter.use("/appointments", appointmentRoutes);
+
+// 🔥 PRIMERO LAS RUTAS ADMIN (evita confundir "admin" con un id)
 indexRouter.use("/appointments/admin", appointmentAdminRoutes);
+
+// 🔥 DESPUÉS LAS RUTAS DE TURNOS NORMALES
+indexRouter.use("/appointments", appointmentRoutes);
 
 export default indexRouter;

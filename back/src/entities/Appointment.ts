@@ -1,26 +1,33 @@
-
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 
-
-@Entity({
-    name: "appointments",
-})
+@Entity({ name: "appointments" })
 export class Appointment {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    date: Date;
+  // 🔥 PERMITIR NULL MOMENTÁNEAMENTE PARA EVITAR ERRORES
+  @Column({ type: "date", nullable: true })
+  date: Date;
 
-    @Column()
-    time: string;
+  @Column({ type: "time", nullable: true })
+  time: string;
 
-    @Column()
-    status: string;
+  @Column({ default: "active" })
+  status: string;
 
-   @ManyToOne(() => User, user => user.appointments, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "userId" })  // 👈 NECESARIO
-    user: User;
+  // 🔥 NUEVO: para turnos hechos por admin sin usuario
+  @Column({ nullable: true })
+  clientName: string;
+
+  // 🔥 OPCIONAL: relación con usuario verdadero
+  @ManyToOne(() => User, (user) => user.appointments, {
+    nullable: true,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({ name: "userId" })
+  user: User;
+
+  @Column({ nullable: true })
+  userId: number;
 }
-// export const AppointmentModel = AppDataSource.getRepository(Appointment);

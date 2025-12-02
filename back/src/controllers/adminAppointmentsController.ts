@@ -5,18 +5,20 @@ import {
   deleteAppointmentAdmin,
 } from "../services/adminAppointmentsService";
 
-export const adminCreateAppointment = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const adminCreateAppointment = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { userId, date, time } = req.body;
+    const { date, time, clientName, userId } = req.body;
 
-    const newTurno = await createAppointmentAdmin(Number(userId), date, time);
+    if (!date || !time) {
+      res.status(400).json({ error: "Fecha y hora son obligatorias." });
+      return;
+    }
+
+    const newAppointment = await createAppointmentAdmin(date, time, clientName, userId);
 
     res.status(201).json({
       message: "Turno creado correctamente",
-      appointment: newTurno
+      appointment: newAppointment
     });
   } catch (error: any) {
     res.status(400).json({ error: error.message });

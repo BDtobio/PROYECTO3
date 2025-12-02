@@ -5,13 +5,13 @@ import { cancelAppointment, createAppointment, getAllAppointments, getAppointmen
 import { PostgresError } from "../interfaces/ErrorInterface";
 
 export const getAllAppointmentsController = async (req: Request, res: Response) => {
-    try {
-        const appointments = await getAllAppointments();
-        res.status(200).json({ appointments });
-     } catch(err) {
-        res.status(404).json({ message: "No se ha podido completar la solicitud", err });
-    }
-}
+  try {
+    const appointments = await getAllAppointments();
+    res.status(200).json({ appointments });
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los turnos" });
+  }
+};
 
 
 

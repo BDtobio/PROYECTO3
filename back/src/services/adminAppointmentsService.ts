@@ -8,19 +8,22 @@ const userRepo = AppDataSource.getRepository(User);
 // ========================
 // 🟩 CREAR TURNO (ADMIN)
 // ========================
-export const createAppointmentAdmin = async (userId: number, date: string, time: string) => {
-  const user = await userRepo.findOne({ where: { id: userId } });
+export const createAppointmentAdmin = async (
+  date: string,
+  time: string,
+  clientName?: string,
+  userId?: number
+) => {
+  const appointment = new Appointment();
 
-  if (!user) throw new Error("Usuario no encontrado.");
+  appointment.date = new Date(date);
+  appointment.time = time;
+  appointment.status = "active";
 
-  const newAppointment = appointmentRepo.create({
-    user,
-    date,
-    time,
-    status: "active",
-  });
+  if (clientName) appointment.clientName = clientName;
+  if (userId) appointment.userId = userId;
 
-  return await appointmentRepo.save(newAppointment);
+  return await appointmentRepo.save(appointment);
 };
 
 // ========================
