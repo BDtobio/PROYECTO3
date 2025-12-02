@@ -28,9 +28,9 @@
 }
 
 .links {
-  margin-top: 0;  /* <- el problema */
+  margin-top: 20px;  /* <- el problema */
   display: flex;
-  gap: 50px;
+  gap: 30px;
   align-items: center;
   transition: all 0.3s ease;
 }

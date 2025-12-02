@@ -33,9 +33,9 @@ const NavBar = () => {
       </div>
 
       <div className={`${styles.links} ${menuOpen ? styles.active : ''}`}>
-        <Link to="/" className={styles.link}>Home</Link>
+        <Link to="/" className={styles.link}>Inicio</Link>
         <Link to="/menu" className={styles.link}>Menu</Link>
-         <Link to="/acerca-de" className={styles.link}>Nosotros</Link>
+         
             <Link to="/reservaciones" className={styles.link}>Reservaciones</Link>
             <Link to="/mis-turnos" className={styles.link}>Mis Turnos</Link>
           

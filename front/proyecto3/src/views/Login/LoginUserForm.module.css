@@ -99,6 +99,26 @@ p {
   color: #561010e2;
 }
 
+
+.registerText {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #ffffff;
+    
+}
+.registerLink {
+  color: #55d32f;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.registerLink:hover {
+  text-decoration: underline !;
+  color: #1ca643;
+}
+
 /* ------------------- RESPONSIVE ------------------- */
 
 /* Tablets */
